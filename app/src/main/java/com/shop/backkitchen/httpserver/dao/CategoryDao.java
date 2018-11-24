@@ -13,13 +13,22 @@ import java.util.Map;
  */
 
 public class CategoryDao {
-    public static String getCategory(Map<String,String> param){
+    public static String getCategoryToString(Map<String,String> param){
         List<ShopCategory> list = null;
         if (param == null || param.isEmpty()){
              list = SqlCategory.getSyncCategory();
 
         }
         return GsonUtils.toJson(list);
+    }
+
+    public static List<ShopCategory> getCategory(Map<String,String> param){
+        List<ShopCategory> list = null;
+        if (param == null || param.isEmpty()){
+            list = SqlCategory.getSyncCategory();
+
+        }
+        return list;
     }
 
     public static boolean addCategory(Map<String,String> param){

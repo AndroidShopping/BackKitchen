@@ -5,6 +5,7 @@ import android.app.Application;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowLog;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.shop.backkitchen.util.SdkConfig;
 
 /**
  * @author mengjie6
@@ -18,5 +19,6 @@ public class BackKitchenApplication extends Application {
         FlowManager.init(new FlowConfig.Builder(this).build());
         // add for verbose logging
          FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
+        SdkConfig.init(this);
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BackKitchen</string>
+    <string name="response_msg_success">ok</string>
+    <string name="response_msg_failure">failure</string>
+    <string name="response_add_success">保存成功</string>
+    <string name="response_add_failure">保存失败</string>
 </resources>

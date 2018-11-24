@@ -6,7 +6,7 @@ package com.shop.backkitchen.httpserver;
  */
 
 public interface ApiName {
-    String BASE = "shop/";
+    String BASE = "/shop/";
     String GET_SHOP_CATEGORY = BASE + "getShopCategory";//获取品类
     String ADD_SHOP_CATEGORY = BASE + "addShopCategory";//添加品类
     String UPDATE_SHOP_CATEGORY = BASE + "updateShopCategory";//更新拼类

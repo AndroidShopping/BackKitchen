@@ -1,5 +1,7 @@
 package com.shop.backkitchen.db.table;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -15,14 +17,22 @@ public class ShopCategory extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
     @Column
+    @Expose
+    @SerializedName("id")
     public long id;//类别id
 
     @Column
+    @Expose
+    @SerializedName("name")
     public String name;// 类别名称
 
     @Column
+    @Expose
+    @SerializedName("description")
     public String description;//类别的描述
 
     @Column
+    @Expose
+    @SerializedName("picPath")
     public String picPath;//图片路径
 }
