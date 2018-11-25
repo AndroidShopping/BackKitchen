@@ -37,5 +37,4 @@ public class ShopName extends BaseModel {
 
     @Column
     public int isShelf = 0;//表示是否上架  0 上架  1  不上架
-
 }

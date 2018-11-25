@@ -1,5 +1,6 @@
 package com.shop.backkitchen.util;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,6 +19,7 @@ public class GsonUtils {
         GSON = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()//打开Export注解，但打开了这个注解,副作用，要转换和不转换都要加注解
 //                .serializeNulls()  //是否序列化空值
+                .setExclusionStrategies(new ExclusionStrategy[]{new DBFlowExclusionStrategy()})
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")//序列化日期格式  "yyyy-MM-dd"
 //              .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)//会把字段首字母大写
                 .setPrettyPrinting() //自动格式化换行

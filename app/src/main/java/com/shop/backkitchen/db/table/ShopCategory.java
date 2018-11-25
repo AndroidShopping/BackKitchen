@@ -3,10 +3,13 @@ package com.shop.backkitchen.db.table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.shop.backkitchen.db.database.ShopDataBase;
+
+import java.util.List;
 
 /**
  * @author mengjie6
@@ -35,4 +38,19 @@ public class ShopCategory extends BaseModel {
     @Expose
     @SerializedName("picPath")
     public String picPath;//图片路径
+
+    public List<ShopName> shopNames;
+
+    // needs to be accessible for DELETE
+
+    @OneToMany(methods = {OneToMany.Method.SAVE, OneToMany.Method.DELETE}, variableName = "shopNames")
+    public List<ShopName> getshopNames() {
+//        if (shopNames == null || shopNames.isEmpty()) {
+//            shopNames = SQLite.select()
+//                    .from(shopNames.class)
+//                    .where(ShopName_Table.queenForeignKeyContainer_id.eq(id))
+//                    .queryList();
+//        }
+        return shopNames;
+    }
 }

@@ -38,18 +38,19 @@ public class ResponseResult {
         }
         return GsonUtils.toJson(base);
     }
+
+    static class ResponseBase {
+        @Expose
+        @SerializedName("status")
+        int status;// 0成功  1 失败
+
+        @Expose
+        @SerializedName("message")
+        String message;//
+
+        @Expose
+        @SerializedName("data")
+        Object data;
+    }
 }
 
-class ResponseBase {
-    @Expose
-    @SerializedName("status")
-    int status;// 0成功  1 失败
-
-    @Expose
-    @SerializedName("message")
-    String message;//
-
-    @Expose
-    @SerializedName("data")
-    Object data;
-}
