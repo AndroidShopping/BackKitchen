@@ -38,7 +38,6 @@ public class CategoryDao {
     public static boolean addCategory(Map<String,String> param){
         if (param == null || param.isEmpty()){
             return false;
-
         }
         ShopCategory category = new ShopCategory();
         category.name = param.get("name");

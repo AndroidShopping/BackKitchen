@@ -24,7 +24,6 @@ public class SqlCategory {
 //    }
 
     public static List<ShopCategory> getSyncCategory(@NonNull SQLOperator... conditions) {
-
         return SqlHelp.get(ShopCategory.class, conditions);
     }
 

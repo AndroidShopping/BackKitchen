@@ -1,10 +1,7 @@
 package com.shop.backkitchen.httpserver.dao;
 
-import com.shop.backkitchen.db.sql.SqlCategory;
 import com.shop.backkitchen.db.sql.SqlShopName;
-import com.shop.backkitchen.db.table.ShopCategory;
 import com.shop.backkitchen.db.table.ShopName;
-import com.shop.backkitchen.util.GsonUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -15,31 +12,58 @@ import java.util.Map;
  */
 
 public class ShopNameDao {
-    public static String getCategoryToString(Map<String,String> param){
-        List<ShopCategory> list = null;
-        if (param == null || param.isEmpty()){
-             list = SqlCategory.getSyncCategory();
 
-        }
-        return GsonUtils.toJson(list);
-    }
-
-    public static boolean addCategory(Map<String,String> param){
+    public static boolean addShopName(Map<String,String> param){
         if (param == null || param.isEmpty()){
             return false;
-
         }
-        ShopCategory category = new ShopCategory();
-        category.name = param.get("name");
-        category.description = param.get("description");
-        category.picPath = param.get("picPath");
-        return SqlCategory.addCategory(category);
+        ShopName shopName = new ShopName();
+        shopName.categoryId = Long.parseLong(param.get("categoryId"));
+        shopName.price = Long.parseLong(param.get("price"));
+        shopName.name = param.get("name");
+        shopName.description = param.get("description");
+        shopName.picPath = param.get("picPath");
+        int isShelf = 1;
+        if (param.containsKey("isShelf")){
+            isShelf = Integer.parseInt(param.get("isShelf"));
+        }
+        shopName.isShelf = isShelf;
+        return SqlShopName.addShopName(shopName);
     }
 
+    public static boolean deleteShopName(Map<String,String> param){
+        if (param == null || param.isEmpty() || !param.containsKey("id")){
+            return false;
+        }
+        ShopName shopNames =  SqlShopName.getShopNameSingle(SqlShopName.getSQLOperator(param));
+        return shopNames == null ? false : shopNames.delete();
+    }
+
+    public static void updateShopName(Map<String,String> param){
+        if (param == null || param.isEmpty() || !param.containsKey("id")){
+             return ;
+        }
+        String id = param.remove("id");
+        SqlShopName.updateShopName(SqlShopName.getSQLOperatorId(id),SqlShopName.getSQLOperator(param));
+    }
+
+    public static ShopName getShopNameSingle(Map<String,String> param){
+        if (param == null || param.isEmpty() ){
+            return null;
+        }
+        return SqlShopName.getShopNameSingle(SqlShopName.getSQLOperator(param));
+    }
+
+    public static List<ShopName> getShopName(Map<String,String> param){
+        if (param == null || param.isEmpty() ){
+            return getAllShopName();
+        }
+        return SqlShopName.getShopName(SqlShopName.getSQLOperator(param));
+    }
 
     public static List<ShopName> getAllShopName(){
-        List<ShopName> shopNames = SqlShopName.getSyncShopName();
-//        List<ShopCategory> shopCategories = CategoryDao.getCategory();
-        return SqlShopName.getSyncShopName();
+        List<ShopName> shopNames = SqlShopName.getShopName();
+        return SqlShopName.getShopName();
     }
+
 }

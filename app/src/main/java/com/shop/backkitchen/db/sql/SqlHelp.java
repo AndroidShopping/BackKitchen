@@ -22,11 +22,19 @@ public class SqlHelp {
         return SQLite.select().from(clazz).where(conditions).queryList();
     }
 
+    static <T extends BaseModel> T getSingle(Class clazz,@NonNull SQLOperator... conditions){
+        return  (T)SQLite.select().from(clazz).where(conditions).querySingle();
+    }
+
     static <T extends BaseModel> boolean add(T category){
         if (category == null){
             return false;
         }
         return category.save();
+    }
+
+    static long update(Class clazz,SQLOperator whereConditions ,@NonNull SQLOperator... conditions){
+        return SQLite.update(clazz).set(conditions).where(whereConditions).executeUpdateDelete();
     }
 
     static <T extends BaseModel> boolean update(T category){
