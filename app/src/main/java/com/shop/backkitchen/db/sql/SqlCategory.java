@@ -79,28 +79,28 @@ public class SqlCategory {
         if (id < 0) {
             return null;
         }
-        return ShopCategory_Table.id.greaterThan(id);
+        return ShopCategory_Table.id.eq(id);
     }
 
     private static SQLOperator getSQLOperatorName(String name) {
         if (TextUtils.isEmpty(name)) {
             return null;
         }
-        return ShopCategory_Table.name.greaterThan(name);
+        return ShopCategory_Table.name.eq(name);
     }
 
     private static SQLOperator getSQLOperatorDescription(String description) {
         if (TextUtils.isEmpty(description)) {
             return null;
         }
-        return ShopCategory_Table.description.greaterThan(description);
+        return ShopCategory_Table.description.eq(description);
     }
 
     private static SQLOperator getSQLOperatorPicPath(String picPath) {
         if (TextUtils.isEmpty(picPath)) {
             return null;
         }
-        return ShopCategory_Table.picPath.greaterThan(picPath);
+        return ShopCategory_Table.picPath.eq(picPath);
     }
 
 }

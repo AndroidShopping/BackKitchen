@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.shop.backkitchen.R;
 import com.shop.backkitchen.httpserver.dao.CategoryDao;
+import com.shop.backkitchen.httpserver.dao.ShopNameDao;
 import com.shop.backkitchen.util.GsonUtils;
 import com.shop.backkitchen.util.ResourcesUtils;
 
@@ -15,7 +16,7 @@ import java.util.Map;
  */
 
 public class ResponseResult {
-    public static String getResponse(String uri,Map<String,String> param){
+    public static String getResponse(String uri, Map<String, String> param) {
         ResponseBase base = new ResponseBase();
         base.status = 0;
         base.message = ResourcesUtils.getString(R.string.response_msg_success);
@@ -24,12 +25,28 @@ public class ResponseResult {
                 base.data = CategoryDao.getCategory(param);
                 break;
             case ApiName.ADD_SHOP_CATEGORY:
-                //此方法包括了封装返回的接口请求数据和处理异常以及跨域
-                if (CategoryDao.addCategory(param)){
+                if (CategoryDao.addCategory(param)) {
                     base.data = ResourcesUtils.getString(R.string.response_add_success);
-                }else {
+                } else {
                     base.data = ResourcesUtils.getString(R.string.response_add_failure);
                 }
+                break;
+            case ApiName.ADD_SHOP_DETAILS:
+                if (ShopNameDao.addShopName(param)) {
+                    base.data = ResourcesUtils.getString(R.string.response_add_success);
+                } else {
+                    base.data = ResourcesUtils.getString(R.string.response_add_failure);
+                }
+                break;
+            case ApiName.UPDATE_SHOP_DETAILS:
+                if (ShopNameDao.updateShopName(param)) {
+                    base.data = ResourcesUtils.getString(R.string.response_add_success);
+                } else {
+                    base.data = ResourcesUtils.getString(R.string.response_add_failure);
+                }
+                break;
+            case ApiName.GET_SHOP_DETAILS:
+                base.data = ShopNameDao.getShopName(param);
                 break;
             default:
                 base.status = 1;

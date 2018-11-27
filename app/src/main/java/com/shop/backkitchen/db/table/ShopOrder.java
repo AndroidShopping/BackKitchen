@@ -33,8 +33,12 @@ public class ShopOrder extends BaseModel {
     public int paymentWay;//付款方式
 
     @Column
+    public long time;
+
+    @Column
     public int orderStatus;//订单状态 1. 未付款  2. 已付款  3. 已取餐  4. 付款失败  5. 订单取消
 
     @Column
     public String remarks;//订单备注
+
 }

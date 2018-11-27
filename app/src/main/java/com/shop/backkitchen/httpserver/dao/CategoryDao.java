@@ -3,7 +3,6 @@ package com.shop.backkitchen.httpserver.dao;
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 import com.shop.backkitchen.db.sql.SqlCategory;
 import com.shop.backkitchen.db.table.ShopCategory;
-import com.shop.backkitchen.util.GsonUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -14,13 +13,6 @@ import java.util.Map;
  */
 
 public class CategoryDao {
-    public static String getCategoryToString(Map<String,String> param){
-        List<ShopCategory> list = null;
-        if (param == null || param.isEmpty()){
-             list = SqlCategory.getSyncCategory();
-        }
-        return GsonUtils.toJson(list);
-    }
 
     public static List<ShopCategory> getCategory(Map<String,String> param){
         SQLOperator[] sqlOperators = SqlCategory.getSQLOperator(param);

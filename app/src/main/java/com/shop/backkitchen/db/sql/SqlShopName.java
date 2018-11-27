@@ -41,11 +41,11 @@ public class SqlShopName {
     public static boolean updateShopName(ShopName shopName) {
         return SqlHelp.update(shopName);
     }
-    public static void updateShopName(SQLOperator whereConditions ,@NonNull SQLOperator... conditions) {
+    public static long updateShopName(SQLOperator whereConditions ,@NonNull SQLOperator... conditions) {
         if (whereConditions == null || conditions == null || conditions.length <1){
-            return ;
+            return -1;
         }
-        SqlHelp.update(ShopName.class,whereConditions,conditions);
+        return SqlHelp.update(ShopName.class,whereConditions,conditions);
     }
 
     public static boolean deleteShopName(ShopName shopName) {
@@ -109,7 +109,7 @@ public class SqlShopName {
         if (id < 0) {
             return null;
         }
-        return ShopName_Table.id.greaterThan(id);
+        return ShopName_Table.id.eq(id);
     }
 
     public static SQLOperator getSQLOperatorCategoryId(String categoryId) {
@@ -127,42 +127,42 @@ public class SqlShopName {
         if (categoryId < 0) {
             return null;
         }
-        return ShopName_Table.categoryId.greaterThan(categoryId);
+        return ShopName_Table.categoryId.eq(categoryId);
     }
 
     private static SQLOperator getSQLOperatorPrice(long price) {
         if (price < 0) {
             return null;
         }
-        return ShopName_Table.price.greaterThan(price);
+        return ShopName_Table.price.eq(price);
     }
 
     private static SQLOperator getSQLOperatorName(String name) {
         if (TextUtils.isEmpty(name)) {
             return null;
         }
-        return ShopName_Table.name.greaterThan(name);
+        return ShopName_Table.name.eq(name);
     }
 
     private static SQLOperator getSQLOperatorDescription(String description) {
         if (TextUtils.isEmpty(description)) {
             return null;
         }
-        return ShopName_Table.description.greaterThan(description);
+        return ShopName_Table.description.eq(description);
     }
 
     private static SQLOperator getSQLOperatorPicPath(String picPath) {
         if (TextUtils.isEmpty(picPath)) {
             return null;
         }
-        return ShopName_Table.picPath.greaterThan(picPath);
+        return ShopName_Table.picPath.eq(picPath);
     }
 
     private static SQLOperator getSQLOperatorIsShelf(int isShelf) {
         if (isShelf < 0) {
             return null;
         }
-        return ShopName_Table.isShelf.greaterThan(isShelf);
+        return ShopName_Table.isShelf.eq(isShelf);
     }
 
 }

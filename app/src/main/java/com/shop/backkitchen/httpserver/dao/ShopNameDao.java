@@ -13,56 +13,70 @@ import java.util.Map;
 
 public class ShopNameDao {
 
-    public static boolean addShopName(Map<String,String> param){
-        if (param == null || param.isEmpty()){
+    public static boolean addShopName(Map<String, String> param) {
+        if (param == null || param.isEmpty()) {
             return false;
         }
         ShopName shopName = new ShopName();
-        shopName.categoryId = Long.parseLong(param.get("categoryId"));
-        shopName.price = Long.parseLong(param.get("price"));
-        shopName.name = param.get("name");
-        shopName.description = param.get("description");
-        shopName.picPath = param.get("picPath");
-        int isShelf = 1;
-        if (param.containsKey("isShelf")){
-            isShelf = Integer.parseInt(param.get("isShelf"));
+        try {
+            if (param.containsKey("categoryId")) {
+                shopName.categoryId = Long.parseLong(param.get("categoryId"));
+            }
+            if (param.containsKey("price")) {
+                shopName.price = Long.parseLong(param.get("price"));
+            }
+            if (param.containsKey("name")) {
+                shopName.name = param.get("name");
+            }
+            if (param.containsKey("description")) {
+                shopName.description = param.get("description");
+            }
+            if (param.containsKey("picPath")) {
+                shopName.picPath = param.get("picPath");
+            }
+            int isShelf = 0;
+            if (param.containsKey("isShelf")) {
+                isShelf = Integer.parseInt(param.get("isShelf"));
+            }
+            shopName.isShelf = isShelf;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
         }
-        shopName.isShelf = isShelf;
         return SqlShopName.addShopName(shopName);
     }
 
-    public static boolean deleteShopName(Map<String,String> param){
-        if (param == null || param.isEmpty() || !param.containsKey("id")){
+    public static boolean deleteShopName(Map<String, String> param) {
+        if (param == null || param.isEmpty() || !param.containsKey("id")) {
             return false;
         }
-        ShopName shopNames =  SqlShopName.getShopNameSingle(SqlShopName.getSQLOperator(param));
+        ShopName shopNames = SqlShopName.getShopNameSingle(SqlShopName.getSQLOperator(param));
         return shopNames == null ? false : shopNames.delete();
     }
 
-    public static void updateShopName(Map<String,String> param){
-        if (param == null || param.isEmpty() || !param.containsKey("id")){
-             return ;
+    public static boolean updateShopName(Map<String, String> param) {
+        if (param == null || param.isEmpty() || !param.containsKey("id")) {
+            return false;
         }
         String id = param.remove("id");
-        SqlShopName.updateShopName(SqlShopName.getSQLOperatorId(id),SqlShopName.getSQLOperator(param));
+        return SqlShopName.updateShopName(SqlShopName.getSQLOperatorId(id), SqlShopName.getSQLOperator(param)) > 0;
     }
 
-    public static ShopName getShopNameSingle(Map<String,String> param){
-        if (param == null || param.isEmpty() ){
+    public static ShopName getShopNameSingle(Map<String, String> param) {
+        if (param == null || param.isEmpty()) {
             return null;
         }
         return SqlShopName.getShopNameSingle(SqlShopName.getSQLOperator(param));
     }
 
-    public static List<ShopName> getShopName(Map<String,String> param){
-        if (param == null || param.isEmpty() ){
+    public static List<ShopName> getShopName(Map<String, String> param) {
+        if (param == null || param.isEmpty()) {
             return getAllShopName();
         }
         return SqlShopName.getShopName(SqlShopName.getSQLOperator(param));
     }
 
-    public static List<ShopName> getAllShopName(){
-        List<ShopName> shopNames = SqlShopName.getShopName();
+    public static List<ShopName> getAllShopName() {
         return SqlShopName.getShopName();
     }
 

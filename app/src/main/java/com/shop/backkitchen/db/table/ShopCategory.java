@@ -42,14 +42,15 @@ public class ShopCategory extends BaseModel {
 
     @Expose
     @SerializedName("shopItem")
-    public List<ShopName> shopNames;
+    public List<ShopName> shopNames;//只显示上架的
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "shopNames")
     public List<ShopName> getShopNames() {
         if (shopNames == null || shopNames.isEmpty()) {
             shopNames = SQLite.select()
                     .from(ShopName.class)
-                    .where(ShopName_Table.categoryId.eq(id))
+                    .where(ShopName_Table.categoryId.eq(id),
+                            ShopName_Table.isShelf.eq(0))
                     .queryList();
         }
         return shopNames;

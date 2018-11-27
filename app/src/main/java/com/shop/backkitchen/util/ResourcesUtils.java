@@ -16,6 +16,11 @@ public class ResourcesUtils {
         return str;
     }
 
+    public static String[] getStringArray(int stringResource){
+        String[] str = SdkConfig.getContext().getResources().getStringArray(stringResource);
+        return str;
+    }
+
     public static float getDimension(int dimensionRes){
         float value = SdkConfig.getContext().getResources().getDimension(dimensionRes);
         return value;

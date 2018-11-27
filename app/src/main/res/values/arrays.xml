@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shopCategory">
+        　　
+        <item>鲜榨果汁</item>
+        　　
+        <item>奶茶</item>
+        　　
+        <item>碳饮料酸</item>
+        　　
+        <item>小吃</item>
+        　　
+        <item>外卖食品</item>
+        <item>其他</item>
+        　　
+    </string-array>
+</resources>
