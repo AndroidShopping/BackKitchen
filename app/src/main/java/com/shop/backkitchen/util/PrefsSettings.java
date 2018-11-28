@@ -15,7 +15,7 @@ public class PrefsSettings extends CachedPrefs {
 
     public BoolVal is_init_category = new BoolVal("is_init_category", false);
 
-    public IntVal every_day_order_number= new IntVal("every_day_order_number", 1);
+    public IntVal every_day_order_number= new IntVal("every_day_order_number", 0);
 
     public LongVal order_number_update_date = new LongVal("order_number_update_date", 0L);
 

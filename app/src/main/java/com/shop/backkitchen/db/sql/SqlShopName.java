@@ -41,11 +41,12 @@ public class SqlShopName {
     public static boolean updateShopName(ShopName shopName) {
         return SqlHelp.update(shopName);
     }
-    public static long updateShopName(SQLOperator whereConditions ,@NonNull SQLOperator... conditions) {
-        if (whereConditions == null || conditions == null || conditions.length <1){
+
+    public static long updateShopName(SQLOperator whereConditions, @NonNull SQLOperator... conditions) {
+        if (whereConditions == null || conditions == null || conditions.length < 1) {
             return -1;
         }
-        return SqlHelp.update(ShopName.class,whereConditions,conditions);
+        return SqlHelp.update(ShopName.class, whereConditions, conditions);
     }
 
     public static boolean deleteShopName(ShopName shopName) {
@@ -69,6 +70,14 @@ public class SqlShopName {
                     try {
                         long price = Long.parseLong(param.get("price"));
                         sqlOperators.add(getSQLOperatorPrice(price));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "number":
+                    try {
+                        int number = Integer.parseInt(param.get("number"));
+                        sqlOperators.add(getSQLOperatorNumber(number));
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
@@ -135,6 +144,9 @@ public class SqlShopName {
             return null;
         }
         return ShopName_Table.price.eq(price);
+    }
+    private static SQLOperator getSQLOperatorNumber(int number) {
+        return ShopName_Table.number.eq(number);
     }
 
     private static SQLOperator getSQLOperatorName(String name) {

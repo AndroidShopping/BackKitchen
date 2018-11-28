@@ -3,10 +3,10 @@ package com.shop.backkitchen.db.sql;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 import com.shop.backkitchen.db.table.ShopCategory;
 import com.shop.backkitchen.db.table.ShopCategory_Table;
+import com.shop.backkitchen.util.GsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class SqlCategory {
         if (TextUtils.isEmpty(jsonCategory)) {
             return false;
         }
-        return SqlHelp.update(new Gson().fromJson(jsonCategory, ShopCategory.class));
+        return SqlHelp.update(GsonUtils.fromJson(jsonCategory, ShopCategory.class));
     }
 
     public static boolean updateCategory(ShopCategory shopCategory) {

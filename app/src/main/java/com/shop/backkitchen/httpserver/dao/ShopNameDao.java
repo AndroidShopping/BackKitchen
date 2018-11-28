@@ -62,11 +62,11 @@ public class ShopNameDao {
         return SqlShopName.updateShopName(SqlShopName.getSQLOperatorId(id), SqlShopName.getSQLOperator(param)) > 0;
     }
 
-    public static ShopName getShopNameSingle(Map<String, String> param) {
-        if (param == null || param.isEmpty()) {
+    public static ShopName getShopNameSingle(long id) {
+        if (id < 0) {
             return null;
         }
-        return SqlShopName.getShopNameSingle(SqlShopName.getSQLOperator(param));
+        return SqlShopName.getShopNameSingle(SqlShopName.getSQLOperatorId(id));
     }
 
     public static List<ShopName> getShopName(Map<String, String> param) {
