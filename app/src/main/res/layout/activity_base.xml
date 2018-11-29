@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--顶部的需要沉浸的图片View 或其他东西 视频View  等 -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_top"
+        android:scaleType="centerCrop" />
+
+
+    <!-- app:use_type="use_padding_top 向上paddingTop状态栏高度-->
+    <com.shop.backkitchen.view.StatusBarHeightView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:use_type="1">
+       <FrameLayout
+           android:id="@+id/id"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+
+    </com.shop.backkitchen.view.StatusBarHeightView>
+</RelativeLayout>

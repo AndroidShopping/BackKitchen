@@ -24,19 +24,18 @@ public class HttpService extends Service {
         if (mHttpServer == null){
             mHttpServer = new HttpServer();
         }
-//        if (mHttpServer.isAlive()){
-//
-//        }
+        flags = START_STICKY;
         return super.onStartCommand(intent, flags, startId);
     }
 
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mHttpServer !=null){
             mHttpServer.stop();
             mHttpServer = null;
         }
+        sendBroadcast(new Intent(ServiceReceiver.SERVICE_RECEIVER));
+        super.onDestroy();
     }
 }

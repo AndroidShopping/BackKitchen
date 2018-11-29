@@ -4,4 +4,9 @@
     <string name="response_msg_failure">failure</string>
     <string name="response_add_success">保存成功</string>
     <string name="response_add_failure">保存失败</string>
+    <string name="new_order">新订单</string>
+    <string name="service_not_started">（服务未启动）</string>
+    <string name="service_started">（服务已启动）</string>
+    <string name="background_services">后台服务</string>
+    <string name="background_services_details">此通知关闭后不能保证服务的稳定性</string>
 </resources>
