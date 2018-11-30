@@ -19,7 +19,7 @@ public class PrefsSettings extends CachedPrefs {
 
     public LongVal order_number_update_date = new LongVal("order_number_update_date", 0L);
 
-    public StringVal service_port = new StringVal("service_port","9999");
+    public IntVal service_port = new IntVal("service_port",9999);
 
 
 

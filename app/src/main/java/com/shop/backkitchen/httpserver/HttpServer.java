@@ -2,6 +2,7 @@ package com.shop.backkitchen.httpserver;
 
 import android.text.TextUtils;
 
+import com.shop.backkitchen.util.Constant;
 import com.shop.backkitchen.util.LogUtil;
 
 import java.io.IOException;
@@ -18,15 +19,8 @@ import fi.iki.elonen.NanoHTTPD;
 public class HttpServer extends NanoHTTPD {
     private static final String TAG = HttpServer.class.getSimpleName();
 
-    public static final int DEFAULT_PORT = 9999;//默认端口
-
     public HttpServer() {//初始化端口
-        super(DEFAULT_PORT);
-        try {
-            start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super(Constant.PORT);
     }
 
 
@@ -38,15 +32,6 @@ public class HttpServer extends NanoHTTPD {
         super(hostname, port);
     }
 
-//    @Override
-//    public Response serve(IHTTPSession session) {
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("<!DOCTYPE html><html><body>");
-//        builder.append("Sorry, Can't Found the page!");
-//        builder.append("</body></html>\n");
-//        return newFixedLengthResponse(builder.toString());
-//    }
-//
     @Override
     public Response serve(IHTTPSession session) {
         if (Method.POST.equals(session.getMethod()) && Method.GET.equals(session.getMethod())){

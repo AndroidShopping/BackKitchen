@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ip_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="132dp"
+            android:text="@string/ip_tip"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tv_ip"
+            android:layout_width="241dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="118dp"
+            android:layout_toRightOf="@id/ip_tip"
+            android:background="@drawable/edit_bg_shape"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/port_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/ip_tip"
+            android:layout_marginTop="205dp"
+            android:text="@string/port_tip"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/et_port"
+            android:layout_width="241dp"
+            android:layout_height="43dp"
+            android:layout_below="@id/tv_ip"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/ip_tip"
+            android:background="@drawable/edit_bg_shape"
+            android:enabled="false"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="9999"
+            android:textColor="#ff000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_start_service"
+            android:layout_width="327dp"
+            android:layout_height="49dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="292dp"
+            android:background="@drawable/setting_button"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/service_not_started_button"
+            android:textColor="@android:color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -31,4 +31,5 @@ dependencies {
     implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
     implementation 'org.nanohttpd:nanohttpd:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }

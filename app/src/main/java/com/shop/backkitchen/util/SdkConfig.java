@@ -1,28 +1,43 @@
 package com.shop.backkitchen.util;
 
-import android.app.Application;
-
 import com.shop.backkitchen.application.BackKitchenApplication;
+import com.shop.backkitchen.event.ServiceStatusEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by mengjie6 on 2018/11/24.
  */
 
 public class SdkConfig {
-    private static Application context;
-    private static BackKitchenApplication activityLifecycleCallbacks;
+    private static BackKitchenApplication context;
 
 
-    public static void config(Application application){
+    public static void config(BackKitchenApplication application) {
         context = application;
     }
 
-    public static Application getContext() {
+    public static BackKitchenApplication getContext() {
         return context;
     }
 
-    public static void init(Application application){
+    public static void init(BackKitchenApplication application) {
         context = application;
-        activityLifecycleCallbacks = new BackKitchenApplication();
+    }
+
+    public static void saveServiceStatus(boolean startup) {
+        if (context == null) {
+            return;
+        }
+        context.isServiceStartUp = startup;
+        EventBus.getDefault().post(new ServiceStatusEvent(startup));
+    }
+    public static boolean getServiceStatus() {
+
+        if (context == null){
+            return false;
+        }
+        return context.isServiceStartUp;
+
     }
 }

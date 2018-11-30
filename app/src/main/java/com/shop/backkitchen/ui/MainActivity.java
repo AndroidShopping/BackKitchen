@@ -20,6 +20,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFitSystemWindows(false);
         setContentView(R.layout.activity_main);
         registered();
         startService(new Intent(this,HttpService.class));
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_setup:
-                // TODO: 2018/11/29 设置页面 
+                startActivity(new Intent(this,SettingsActivity.class));
                 break;
             case R.id.iv_history:
                 // TODO: 2018/11/29 历史订单页面

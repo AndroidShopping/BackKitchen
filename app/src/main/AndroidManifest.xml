@@ -21,9 +21,10 @@
         </activity>
         <service android:name=".service.HttpService"/>
 
-        <receiver android:name=".service.ServiceReceiver"
-            android:process="1000"/>
-    </application>
+        <receiver android:name=".service.ServiceReceiver"/>
 
+        <activity android:name=".ui.SettingsActivity"/>
+
+    </application>
 
 </manifest>
