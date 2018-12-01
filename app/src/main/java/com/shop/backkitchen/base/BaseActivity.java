@@ -55,5 +55,10 @@ public class BaseActivity extends FragmentActivity {
             //这样半透明+白=灰, 状态栏的文字能看得清
             StatusBarUtil.setStatusBarColor(this,0x55000000);
         }
+        if (fitSystemWindows) {
+            StatusBarUtil.setStatusBarColor(this, stautColor);
+        }
     }
+
+    private int stautColor= 0xff273448;
 }

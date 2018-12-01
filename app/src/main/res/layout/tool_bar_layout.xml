@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
+        android:onClick="onClick"
         android:src="@drawable/icon_return_coin"/>
 
     <ImageView
@@ -21,6 +22,7 @@
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
         android:layout_gravity="right"
+        android:onClick="onClick"
         android:visibility="gone"
-        android:src="@drawable/icon_return_coin"/>
+        android:src="@drawable/icon_add"/>
 </FrameLayout>

@@ -21,7 +21,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
- *
+ * @author mengjie6
+ * @date 2018/12/01
  */
 public class SettingsActivity extends BaseActivity {
 
@@ -31,6 +32,7 @@ public class SettingsActivity extends BaseActivity {
     private TextView tvIp;
     private TextView tvStartService;
     private EditText etPort;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -48,27 +50,33 @@ public class SettingsActivity extends BaseActivity {
         tvIp.setText(String.valueOf(IpGetUtil.getLocalIpAddress()));
         etPort.setEnabled(serviceStatus);
         etPort.setText(String.valueOf(Constant.PORT));
-        if (serviceStatus){
+        if (serviceStatus) {
             tvStartService.setText(ResourcesUtils.getString(R.string.service_started_button));
-        }else{
+            tvStartService.setBackgroundResource(R.drawable.setting_button_startup);
+        } else {
             tvStartService.setText(ResourcesUtils.getString(R.string.service_not_started_button));
+            tvStartService.setBackgroundResource(R.drawable.setting_button);
         }
     }
 
     @Subscribe
-    public void event(ServiceStatusEvent event){
-        if (event == null || serviceStatus == event.serviceStatus){
+    public void event(ServiceStatusEvent event) {
+        if (event == null || serviceStatus == event.serviceStatus) {
             return;
         }
         serviceStatus = event.serviceStatus;
+        setData();
     }
 
     protected void onClick(View view) {
-       switch (view.getId()){
-           case R.id.tv_start_service:
-               startService();
-               break;
-       }
+        switch (view.getId()) {
+            case R.id.tv_start_service:
+                startService();
+                break;
+            case R.id.iv_back:
+                finish();
+                break;
+        }
     }
 
     private void startService() {
@@ -76,9 +84,9 @@ public class SettingsActivity extends BaseActivity {
             int port = Integer.parseInt(etPort.getText().toString());
             Constant.PORT = port;
             SharedPreferencesUtils.getSetting().service_port.setVal(Constant.PORT).commit();
-            startService(new Intent(this,HttpService.class));
-        }catch (NumberFormatException e){
-            Toast.makeText(thisContext,ResourcesUtils.getString(R.string.port_error),Toast.LENGTH_SHORT).show();
+            startService(new Intent(this, HttpService.class));
+        } catch (NumberFormatException e) {
+            Toast.makeText(thisContext, ResourcesUtils.getString(R.string.port_error), Toast.LENGTH_SHORT).show();
             return;
         }
 

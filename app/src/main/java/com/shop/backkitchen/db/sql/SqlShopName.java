@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 import com.shop.backkitchen.db.table.ShopName;
 import com.shop.backkitchen.db.table.ShopName_Table;
 
@@ -18,6 +19,14 @@ import java.util.Map;
  */
 
 public class SqlShopName {
+
+    public static void getShopName(@NonNull QueryTransaction.QueryResultListCallback<ShopName> queryResultListCallback) {
+        SqlHelp.getAsync(ShopName.class,queryResultListCallback);
+    }
+
+    public static void getShopName(@NonNull QueryTransaction.QueryResultListCallback<ShopName> queryResultListCallback,@NonNull SQLOperator... conditions) {
+         SqlHelp.getAsync(ShopName.class,queryResultListCallback, conditions);
+    }
 
     public static List<ShopName> getShopName(@NonNull SQLOperator... conditions) {
         return SqlHelp.get(ShopName.class, conditions);

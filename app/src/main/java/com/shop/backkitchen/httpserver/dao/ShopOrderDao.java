@@ -8,9 +8,11 @@ import com.shop.backkitchen.db.sql.SqlShopOrder;
 import com.shop.backkitchen.db.table.ShopName;
 import com.shop.backkitchen.db.table.ShopOrder;
 import com.shop.backkitchen.httpserver.ResponseResult;
+import com.shop.backkitchen.util.BigDecimalUtil;
 import com.shop.backkitchen.util.GsonUtils;
 import com.shop.backkitchen.util.OrderNumberUtil;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -26,12 +28,11 @@ public class ShopOrderDao {
             return null;
         }
         ShopOrder shopOrder = new ShopOrder();
-        try {
-            shopOrder.price = Integer.parseInt(param.get("price"));
-        }catch (NumberFormatException e){
+        BigDecimal totalBigDecimal = BigDecimalUtil.toBigDecimal(param.get("price"));
+        if (BigDecimalUtil.equals(totalBigDecimal,BigDecimal.ZERO)){
             return null;
         }
-
+        shopOrder.price = totalBigDecimal.longValue();
         shopOrder.shopItem= GsonUtils.fromJson(param.get("order"),new TypeToken<List<ShopName>>(){}.getType());
         if (shopOrder == null || shopOrder.shopItem == null || shopOrder.shopItem.isEmpty()){
             return null;
@@ -40,12 +41,12 @@ public class ShopOrderDao {
         long tempPrice = 0l;
         for (ShopName shopName:shopOrder.shopItem) {
             tempShopName = ShopNameDao.getShopNameSingle(shopName.id);
-            if (tempShopName == null || tempShopName.isShelf == 1 || tempShopName.price != shopName.price){
+            if (tempShopName == null || tempShopName.isShelf == 1 || !BigDecimalUtil.equals(tempShopName.price,shopName.price)){
                 return null;
             }
-            tempPrice += shopName.price * shopName.number;
+            tempPrice = BigDecimalUtil.add(tempPrice,BigDecimalUtil.mul(shopName.price,shopName.number));
         }
-        if (shopOrder.price != tempPrice){
+        if (!BigDecimalUtil.equals(tempPrice,shopOrder.price)){
             return null;
         }
         shopOrder.orderStatus = 1;

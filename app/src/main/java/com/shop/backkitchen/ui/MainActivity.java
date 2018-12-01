@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.iv_administration:
                 // TODO: 2018/11/29  商品管理页面
+                startActivity(new Intent(this,ShopListActivity.class));
                 break;
         }
     }

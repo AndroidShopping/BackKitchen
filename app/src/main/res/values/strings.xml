@@ -16,4 +16,16 @@
     <string name="port_error">端口号格式有误</string>
     <string name="service_startup_failure">服务启动失败</string>
     <string name="service_startup_success">服务启动成功</string>
+    <string name="shop_shelf">上架</string>
+    <string name="shop_obtained">下架</string>
+    <string name="price_unit">￥ %s</string>
+    <string name="commiting">正在提交</string>
+    <string name="commit">提交</string>
+    <string name="commit_success">提交成功</string>
+    <string name="commit_failure">提交失败</string>
+    <string name="shop_name">请输入产品名称</string>
+    <string name="shop_price">请输入价格</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="upload_failure">上传失败</string>
+    <string name="upload_success">上传成功</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
 import java.util.List;
 
@@ -14,8 +15,22 @@ import java.util.List;
  */
 
 public class SqlHelp {
-    static <T extends BaseModel> List<T> get(Class clazz){
-        return SQLite.select().from(clazz).queryList();
+
+    static  <T extends BaseModel> void getAsync(Class clazz, @NonNull QueryTransaction.QueryResultListCallback<T> queryResultListCallback){
+        SQLite.select()
+                .from(clazz)
+                .async()
+                .queryListResultCallback(queryResultListCallback)
+                .execute();
+    }
+
+    static  <T extends BaseModel> void getAsync(Class clazz, @NonNull QueryTransaction.QueryResultListCallback<T> queryResultListCallback,@NonNull SQLOperator... conditions){
+        SQLite.select()
+                .from(clazz)
+                .where(conditions)
+                .async()
+                .queryListResultCallback(queryResultListCallback)
+                .execute();
     }
 
     static <T extends BaseModel> List<T> get(Class clazz,@NonNull SQLOperator... conditions){

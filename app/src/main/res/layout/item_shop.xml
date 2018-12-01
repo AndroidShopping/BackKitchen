@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingLeft="17dp"
+    android:paddingRight="17dp"
+    android:layout_height="90dp">
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="67dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/not_pic"
+        android:layout_height="67dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="61dp"
+            android:layout_height="23dp"
+            android:text="@string/price_unit"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="#E4001E"/>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="61dp"
+            android:layout_height="23dp"
+            android:text="@string/shop_shelf"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shop_button_selector"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="61dp"
+        android:layout_height="23dp"
+        android:layout_toRightOf="@id/iv_icon"
+        android:layout_toLeftOf="@id/ll_right"
+        android:text="@string/price_unit"
+        android:textSize="12dp"
+        android:paddingLeft="12dp"
+        android:layout_centerVertical="true"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/black"/>
+
+</RelativeLayout>
