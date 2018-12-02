@@ -35,6 +35,7 @@ public class HttpService extends Service {
             mHttpServer = null;
         }
         try {
+//            mHttpServer = new HttpServer("www.backkitchen.com",Constant.PORT);
             mHttpServer = new HttpServer();
             mHttpServer.start(NanoHTTPD.SOCKET_READ_TIMEOUT, true);
             SdkConfig.saveServiceStatus(true);

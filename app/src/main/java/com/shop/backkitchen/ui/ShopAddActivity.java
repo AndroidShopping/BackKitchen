@@ -19,14 +19,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 import com.shop.backkitchen.R;
 import com.shop.backkitchen.base.BaseActivity;
+import com.shop.backkitchen.db.sql.SqlCategory;
+import com.shop.backkitchen.db.table.ShopCategory;
 import com.shop.backkitchen.db.table.ShopName;
 import com.shop.backkitchen.upload.UploadPic;
 import com.shop.backkitchen.util.BigDecimalUtil;
 import com.shop.backkitchen.util.CommonToast;
 import com.shop.backkitchen.util.RealPathFromUriUtils;
 import com.shop.backkitchen.util.ResourcesUtils;
+import com.shop.backkitchen.view.BottomMenuFragment;
+import com.shop.backkitchen.view.MenuItem;
+import com.shop.backkitchen.view.MenuItemOnClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 添加商品
@@ -43,7 +52,43 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
     //相册请求码
     private static final int ALBUM_REQUEST_CODE = 1;
     private String realPathFromUri;
-    private int categoryId = -1;
+    private ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private boolean isCommit = false;
+    private QueryTransaction.QueryResultListCallback<ShopCategory> listener = new QueryTransaction.QueryResultListCallback<ShopCategory>() {
+        @Override
+        public void onListQueryResult(QueryTransaction transaction, @NonNull List<ShopCategory> tResult) {
+            if (tResult == null || tResult.isEmpty()){
+                if (isCommit){
+                    commitShop(6);
+                }
+                CommonToast.cancelProgressDialog();
+                return;
+            }
+            MenuItem menuItem;
+            if (bottomMenuFragment == null){
+                bottomMenuFragment = new BottomMenuFragment();
+                bottomMenuFragment.setMenuItems(menuItems);
+            }
+            menuItems.clear();
+            for (ShopCategory category:tResult) {
+                menuItem = new MenuItem();
+                menuItem.setText(category.name);
+                menuItem.setId(category.id);
+                menuItem.setMenuItemOnClickListener(new MenuItemOnClickListener(bottomMenuFragment,menuItem) {
+                    @Override
+                    public void onClickMenuItem(View v, MenuItem menuItem) {
+                        commitShop(menuItem.getId());
+                    }
+                });
+                menuItems.add(menuItem);
+            }
+            if (isCommit) {
+                showCategory();
+            }
+        }
+    };
+
+    private BottomMenuFragment bottomMenuFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,19 +102,18 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
         et_price.setFilters(filters);
         iv_icon.setOnClickListener(this);
         tv_add_shop.setOnClickListener(this);
-
+        SqlCategory.getSyncCategory(listener);
     }
+
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_add_shop:
-                // TODO: 2018/12/1 提交订单
-                commitShop();
+                showCategory();
                 break;
             case R.id.iv_icon:
-                // TODO: 2018/12/1 打开相机
                 albmPermission();
                 break;
             case R.id.iv_back:
@@ -78,8 +122,7 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    private void commitShop() {
-        categoryId = 1;
+    private void showCategory(){
         if (TextUtils.isEmpty(realPathFromUri)){
             return;
         }
@@ -89,9 +132,21 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
         if (TextUtils.isEmpty(et_price.getText().toString())){
             return;
         }
-        if (categoryId < 0){
+        if (menuItems == null){
+            isCommit = true;
+            CommonToast.showProgressDialog(thisContext,ResourcesUtils.getString(R.string.commiting));
+            SqlCategory.getSyncCategory(listener);
             return;
         }
+        isCommit = false;
+        if (bottomMenuFragment == null) {
+            bottomMenuFragment = new BottomMenuFragment();
+            bottomMenuFragment.setMenuItems(menuItems);
+        }
+        bottomMenuFragment.show(getSupportFragmentManager(), "BottomMenuFragment");
+    }
+
+    private void commitShop(long categoryId) {
         tv_add_shop.setEnabled(false);
         final ShopName shopName = new ShopName();
         shopName.name = et_name.getText().toString();
@@ -120,7 +175,6 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void reset() {
-        categoryId = -1;
         et_price.setText("");
         et_name.setText("");
         realPathFromUri = "";

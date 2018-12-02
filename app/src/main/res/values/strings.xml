@@ -21,6 +21,7 @@
     <string name="price_unit">￥ %s</string>
     <string name="commiting">正在提交</string>
     <string name="commit">提交</string>
+    <string name="confirm">确认</string>
     <string name="commit_success">提交成功</string>
     <string name="commit_failure">提交失败</string>
     <string name="shop_name">请输入产品名称</string>
@@ -28,4 +29,7 @@
     <string name="permission_denied">Permission Denied</string>
     <string name="upload_failure">上传失败</string>
     <string name="upload_success">上传成功</string>
+    <string name="cancle">取消</string>
+    <string name="time">下单时间</string>
+    <string name="share">%s 份</string>
 </resources>

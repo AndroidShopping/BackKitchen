@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 import com.shop.backkitchen.db.table.ShopCategory;
 import com.shop.backkitchen.db.table.ShopCategory_Table;
 import com.shop.backkitchen.util.GsonUtils;
@@ -19,9 +20,14 @@ import java.util.Map;
 
 public class SqlCategory {
 
-//    public static List<ShopCategory> getSyncCategory(){
-//        return SqlHelp.get(ShopCategory.class);
-//    }
+    public static void getSyncCategory(@NonNull QueryTransaction.QueryResultListCallback<ShopCategory> queryResultListCallback) {
+        SqlHelp.getAsync(ShopCategory.class,queryResultListCallback);
+    }
+
+
+    public static void getSyncCategory(@NonNull QueryTransaction.QueryResultListCallback<ShopCategory> queryResultListCallback,@NonNull SQLOperator... conditions) {
+        SqlHelp.getAsync(ShopCategory.class,queryResultListCallback, conditions);
+    }
 
     public static List<ShopCategory> getSyncCategory(@NonNull SQLOperator... conditions) {
         return SqlHelp.get(ShopCategory.class, conditions);
