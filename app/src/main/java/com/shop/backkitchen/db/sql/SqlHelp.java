@@ -4,8 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.property.IProperty;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
+import com.shop.backkitchen.db.table.ShopOrder_Table;
 
 import java.util.List;
 
@@ -19,6 +21,25 @@ public class SqlHelp {
     static  <T extends BaseModel> void getAsync(Class clazz, @NonNull QueryTransaction.QueryResultListCallback<T> queryResultListCallback){
         SQLite.select()
                 .from(clazz)
+                .async()
+                .queryListResultCallback(queryResultListCallback)
+                .execute();
+    }
+
+    static  <T extends BaseModel> void getAsyncOrderBy(Class clazz, @NonNull QueryTransaction.QueryResultListCallback<T> queryResultListCallback, @NonNull IProperty property, boolean ascending){
+        SQLite.select()
+                .from(clazz)
+                .orderBy(property,ascending)
+                .async()
+                .queryListResultCallback(queryResultListCallback)
+                .execute();
+    }
+
+    static  <T extends BaseModel> void getAsyncOrderBy(Class clazz, @NonNull QueryTransaction.QueryResultListCallback<T> queryResultListCallback, @NonNull IProperty property, boolean ascending,@NonNull SQLOperator... conditions){
+        SQLite.select()
+                .from(clazz)
+                .where(conditions)
+                .orderBy(ShopOrder_Table.time,true)
                 .async()
                 .queryListResultCallback(queryResultListCallback)
                 .execute();

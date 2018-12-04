@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 import com.shop.backkitchen.db.table.ShopOrder;
 import com.shop.backkitchen.db.table.ShopOrder_Table;
 import com.shop.backkitchen.util.GsonUtils;
@@ -18,6 +19,18 @@ import java.util.Map;
  */
 
 public class SqlShopOrder {
+
+    public static void getShopOrder(@NonNull QueryTransaction.QueryResultListCallback<ShopOrder> queryResultListCallback) {
+        SqlHelp.getAsync(ShopOrder.class,queryResultListCallback);
+    }
+
+    public static void getShopOrder(@NonNull QueryTransaction.QueryResultListCallback<ShopOrder> queryResultListCallback,@NonNull SQLOperator... conditions) {
+        SqlHelp.getAsync(ShopOrder.class,queryResultListCallback, conditions);
+    }
+
+    public static void getShopOrderMain(@NonNull QueryTransaction.QueryResultListCallback<ShopOrder> queryResultListCallback) {
+        SqlHelp.getAsyncOrderBy(ShopOrder.class,queryResultListCallback,ShopOrder_Table.orderStatus,true,getSQLOperatorOrderStatus(2));
+    }
 
 
     public static List<ShopOrder> getShopOrder(@NonNull SQLOperator... conditions) {
@@ -134,7 +147,7 @@ public class SqlShopOrder {
         return ShopOrder_Table.time.eq(time);
     }
 
-    private static SQLOperator getSQLOperatorOrderStatus(int orderStatus) {
+    public static SQLOperator getSQLOperatorOrderStatus(int orderStatus) {
         if (orderStatus < 0) {
             return null;
         }

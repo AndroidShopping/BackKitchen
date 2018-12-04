@@ -57,6 +57,11 @@
             android:textColor="@android:color/black"
             android:textSize="12dp" />
     </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffdedede"/>
 </LinearLayout>
 
 

@@ -14,6 +14,7 @@ import com.shop.backkitchen.R;
 import com.shop.backkitchen.db.table.ShopName;
 import com.shop.backkitchen.db.table.ShopOrder;
 import com.shop.backkitchen.util.BigDecimalUtil;
+import com.shop.backkitchen.util.CommonToast;
 import com.shop.backkitchen.util.CurrencyUtil;
 import com.shop.backkitchen.util.ResourcesUtils;
 
@@ -46,7 +47,6 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }else {
             return 1;
         }
-//        return super.getItemViewType(position);
     }
 
     @NonNull
@@ -99,26 +99,6 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return t1;
     }
 
-//    @Override
-//    public void onBindViewHolder(RecyclerView.ViewHolder,int i) {
-//        BaseModel shopName = getItem(i);
-////        shopViewHolder.tvName.setText(String.valueOf(shopName.number));
-////
-////        shopViewHolder.tvStatus.setTag(i);
-////        if (shopName.picPath != null) {
-////            Glide.with(context).load(shopName.picPath).centerCrop()
-////                    .error(R.drawable.not_pic)
-////                    .placeholder(R.drawable.not_pic)
-////                    .into(shopViewHolder.ivIcon);
-////        }else {
-////            shopViewHolder.ivIcon.setImageResource(R.drawable.not_pic);
-////        }
-////
-////        // TODO: 2018/12/1 设置价格
-////        shopViewHolder.tvPrice.setText(CurrencyUtil.numberFormatMoney(BigDecimalUtil.div(shopName.price)));
-//
-//    }
-
     private BaseModel getItem(int position) {
         if (position < 0) {
             return null;
@@ -139,16 +119,16 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 continue;
             }
             for (ShopName name:order.shopItem) {
-                position --;
                 if (position == 0){
                     if(order.shopItem.size()-1 == order.shopItem.indexOf(name)){
                         name.isFinish = true;
                     }
                     return name;
                 }
+                position --;
             }
         }
-        return shopOrders.get(position);
+        return null;
     }
 
     @Override
@@ -171,8 +151,93 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
+                commitOrder(v);
                 break;
         }
+    }
+
+    private void commitOrder(View v) {
+        if (v == null){
+            return;
+        }
+        Object obj = v.getTag();
+        if (!(obj instanceof Integer)){
+            return;
+        }
+        int position = (int) v.getTag();
+        if (position < 0){
+            return;
+        }
+        ShopOrder shopOrder = getShopOrderItem(position);
+        if (shopOrder == null){
+            return;
+        }
+        CommonToast.showProgressDialog(context,ResourcesUtils.getString(R.string.commiting));
+        shopOrder.orderStatus = 3;
+        if (shopOrder.update()){
+            CommonToast.cancelProgressDialog();
+            shopOrders.remove(shopOrder);
+            notifyDataSetChanged();
+//            removeItem(shopOrder);
+        }else {
+            CommonToast.cancelProgressDialog();
+        }
+    }
+
+    private void removeItem(ShopOrder shopOrder) {
+        if (shopOrder == null){
+            return;
+        }
+        int startPosition = -1;
+        int endPosition = -1;
+        for (ShopOrder order:shopOrders) {
+            startPosition++;
+            if (shopOrder.equals(order)){
+                endPosition = startPosition;
+                if (shopOrder.shopItem != null && !shopOrder.shopItem.isEmpty()){
+                   endPosition += shopOrder.shopItem.size();
+                }
+                break;
+            }else {
+                if (shopOrder.shopItem != null && !shopOrder.shopItem.isEmpty()){
+                    startPosition += shopOrder.shopItem.size();
+                }
+            }
+        }
+        if (startPosition <0 || endPosition == -1){
+            return;
+        }
+        shopOrders.remove(shopOrder);
+        if (startPosition == endPosition){
+            notifyItemRemoved(startPosition);
+        }else if (endPosition > startPosition){
+            notifyItemRangeRemoved(startPosition,endPosition-startPosition);
+        }
+
+    }
+
+    private ShopOrder getShopOrderItem(int position) {
+        if (position < 0) {
+            return null;
+        } else if (shopOrders == null || shopOrders.isEmpty()) {
+            return null;
+        }
+
+        for (ShopOrder order:shopOrders) {
+            if (position == 0){
+                return order;
+            }
+            position --;
+            if (order.shopItem == null || order.shopItem.isEmpty()){
+                continue;
+            }
+            if (position > order.shopItem.size()){
+                position -= order.shopItem.size();
+                continue;
+            }
+            return order;
+        }
+        return null;
     }
 
     public class ShopViewHolder extends RecyclerView.ViewHolder {

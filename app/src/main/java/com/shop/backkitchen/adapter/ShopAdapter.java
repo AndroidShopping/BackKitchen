@@ -72,13 +72,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
 
     }
 
-    private ShopName getItem(int postion) {
-        if (postion < 0) {
+    private ShopName getItem(int position) {
+        if (position < 0) {
             return null;
         } else if (shopNames == null || shopNames.isEmpty()) {
             return null;
         }
-        return shopNames.get(postion);
+        return shopNames.get(position);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         switch (v.getId()) {
             case R.id.tv_status:
                 // TODO: 2018/12/1 上架下架
-                int postion = (int) v.getTag();
-                ShopName shopName = getItem(postion);
+                int position = (int) v.getTag();
+                ShopName shopName = getItem(position);
                 if (shopName == null){
                     return;
                 }
@@ -102,7 +102,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
                     shopName.isShelf = 1;
                 }
                 if (shopName.update()){
-                    notifyItemChanged(postion);
+                    notifyItemChanged(position);
                 }
                 break;
         }
