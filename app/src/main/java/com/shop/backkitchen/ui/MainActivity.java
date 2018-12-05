@@ -119,10 +119,9 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(this,SettingsActivity.class));
                 break;
             case R.id.iv_history:
-                // TODO: 2018/11/29 历史订单页面
+                startActivity(new Intent(this,HistoryActivity.class));
                 break;
             case R.id.iv_administration:
-                // TODO: 2018/11/29  商品管理页面
                 startActivity(new Intent(this,ShopListActivity.class));
                 break;
         }

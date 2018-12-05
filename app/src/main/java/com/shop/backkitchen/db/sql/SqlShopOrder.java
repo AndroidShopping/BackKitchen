@@ -32,6 +32,10 @@ public class SqlShopOrder {
         SqlHelp.getAsyncOrderBy(ShopOrder.class,queryResultListCallback,ShopOrder_Table.orderStatus,true,getSQLOperatorOrderStatus(2));
     }
 
+    public static void getShopOrderHistory(@NonNull QueryTransaction.QueryResultListCallback<ShopOrder> queryResultListCallback) {
+        SqlHelp.getAsyncOrderBy(ShopOrder.class,queryResultListCallback,ShopOrder_Table.orderStatus,false,getSQLOperatorOrderStatusNot(2));
+    }
+
 
     public static List<ShopOrder> getShopOrder(@NonNull SQLOperator... conditions) {
         return SqlHelp.get(ShopOrder.class, conditions);
@@ -152,5 +156,12 @@ public class SqlShopOrder {
             return null;
         }
         return ShopOrder_Table.orderStatus.eq(orderStatus);
+    }
+
+    private static SQLOperator getSQLOperatorOrderStatusNot(int orderStatus) {
+        if (orderStatus < 0) {
+            return null;
+        }
+        return ShopOrder_Table.orderStatus.notEq(orderStatus);
     }
 }
