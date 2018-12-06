@@ -143,8 +143,8 @@ public class ShopOrderHistoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public ShopViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvNumber = itemView.findViewById(R.id.tv_number);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvNumber = (TextView) itemView.findViewById(R.id.tv_number);
         }
     }
 
@@ -155,9 +155,9 @@ public class ShopOrderHistoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public ShopOrderHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvPrice = itemView.findViewById(R.id.tv_price);
-            tvTime = itemView.findViewById(R.id.tv_time);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
+            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
         }
     }
 

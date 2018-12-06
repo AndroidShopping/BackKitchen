@@ -269,7 +269,7 @@ public class CommonToast extends Toast {
             setContentView(R.layout.toast_image);
 //            View icon = findViewById(R.id.icon);
 //            icon.setVisibility(View.GONE);
-            ImageView loadingview = findViewById(R.id.icon);
+            ImageView loadingview = (ImageView) findViewById(R.id.icon);
             loadingview.setImageResource(R.drawable.alert_load_icon);
             TextView tv_message = (TextView) findViewById(R.id.message);
             if (!TextUtils.isEmpty(message)) {

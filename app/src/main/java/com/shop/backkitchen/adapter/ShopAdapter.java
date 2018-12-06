@@ -90,7 +90,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_status:
-                // TODO: 2018/12/1 上架下架
                 int position = (int) v.getTag();
                 ShopName shopName = getItem(position);
                 if (shopName == null){
@@ -116,10 +115,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
 
         public ShopViewHolder(@NonNull View itemView, View.OnClickListener listener) {
             super(itemView);
-            ivIcon = itemView.findViewById(R.id.iv_icon);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvStatus = itemView.findViewById(R.id.tv_status);
-            tvPrice = itemView.findViewById(R.id.tv_price);
+            ivIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
+            tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
             if (tvStatus != null) {
                 tvStatus.setOnClickListener(listener);
             }

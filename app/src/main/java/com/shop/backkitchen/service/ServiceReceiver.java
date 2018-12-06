@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.shop.backkitchen.util.SdkConfig;
+
 /**
  * 服务保活
  * @author mengjie6
@@ -15,7 +17,10 @@ public class ServiceReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(SERVICE_RECEIVER)){
-            context.startService(new Intent(context, HttpService.class));
+            SdkConfig.getContext().startService(new Intent(context, HttpService.class));
+        }else if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            System.out.println("手机开机了....");
+            SdkConfig.getContext().startService(new Intent(context, HttpService.class));
         }
     }
 }

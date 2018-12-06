@@ -3,9 +3,7 @@ package com.shop.backkitchen.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +43,7 @@ public class ShopListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
         findViewById(R.id.iv_add).setVisibility(View.VISIBLE);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this );
         recyclerView.setLayoutManager(layoutManager);
@@ -53,13 +51,8 @@ public class ShopListActivity extends BaseActivity {
         recycleAdapter = new ShopAdapter(thisContext);
         recyclerView.setAdapter(recycleAdapter);
         //设置分隔线
-        //recyclerView.addItemDecoration( new DividerGridItemDecoration(this ));
-        //设置增加或删除条目的动画
-        recyclerView.setItemAnimator( new DefaultItemAnimator());
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
-        recyclerView.addItemDecoration(divider);
     }
 
     @Override

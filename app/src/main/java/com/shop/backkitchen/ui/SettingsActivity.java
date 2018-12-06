@@ -38,9 +38,9 @@ public class SettingsActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        tvIp = findViewById(R.id.tv_ip);
-        tvStartService = findViewById(R.id.tv_start_service);
-        etPort = findViewById(R.id.et_port);
+        tvIp = (TextView) findViewById(R.id.tv_ip);
+        tvStartService = (TextView) findViewById(R.id.tv_start_service);
+        etPort = (EditText) findViewById(R.id.et_port);
         serviceStatus = SdkConfig.getServiceStatus();
 
         setData();

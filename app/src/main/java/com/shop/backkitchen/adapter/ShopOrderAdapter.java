@@ -247,9 +247,9 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public ShopViewHolder(@NonNull View itemView, View.OnClickListener listener) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvNumber = itemView.findViewById(R.id.tv_number);
-            tvConfirm = itemView.findViewById(R.id.tv_confirm);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvNumber = (TextView) itemView.findViewById(R.id.tv_number);
+            tvConfirm = (TextView) itemView.findViewById(R.id.tv_confirm);
             if (tvConfirm != null) {
                 tvConfirm.setOnClickListener(listener);
             }
@@ -263,9 +263,9 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public ShopOrderHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvPrice = itemView.findViewById(R.id.tv_price);
-            tvTime = itemView.findViewById(R.id.tv_time);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
+            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
         }
     }
 

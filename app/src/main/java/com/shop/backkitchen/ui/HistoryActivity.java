@@ -36,7 +36,7 @@ public class HistoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setFitSystemWindows(false);
         setContentView(R.layout.activity_history);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this );
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper. VERTICAL);

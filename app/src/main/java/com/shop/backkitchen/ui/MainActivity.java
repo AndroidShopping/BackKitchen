@@ -19,8 +19,10 @@ import com.shop.backkitchen.db.sql.SqlShopOrder;
 import com.shop.backkitchen.db.table.ShopCategory;
 import com.shop.backkitchen.db.table.ShopOrder;
 import com.shop.backkitchen.event.ServiceStatusEvent;
+import com.shop.backkitchen.event.StartupServiceEvent;
 import com.shop.backkitchen.service.HttpService;
 import com.shop.backkitchen.service.ServiceReceiver;
+import com.shop.backkitchen.util.LogUtil;
 import com.shop.backkitchen.util.ResourcesUtils;
 import com.shop.backkitchen.util.SharedPreferencesUtils;
 
@@ -64,17 +66,14 @@ public class MainActivity extends BaseActivity {
         setFitSystemWindows(false);
         setContentView(R.layout.activity_main);
         registered();
-        tv_service_status = findViewById(R.id.tv_service_status);
-        recyclerView = findViewById(R.id.recyclerView);
+        tv_service_status = (TextView) findViewById(R.id.tv_service_status);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this );
         recyclerView.setLayoutManager(layoutManager);
-        layoutManager.setOrientation(OrientationHelper. VERTICAL);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
         recycleAdapter = new ShopOrderAdapter(thisContext);
         recyclerView.setAdapter(recycleAdapter);
-        //设置分隔线
-        //recyclerView.addItemDecoration( new DividerGridItemDecoration(this ));
-        //设置增加或删除条目的动画
         recyclerView.setItemAnimator( new DefaultItemAnimator());
         setData();
         startService(new Intent(this,HttpService.class));
@@ -103,6 +102,12 @@ public class MainActivity extends BaseActivity {
         }
         serviceStatus = event.serviceStatus;
         setData();
+    }
+
+    @Subscribe
+    public void event(StartupServiceEvent event) {
+        LogUtil.e("TAG","启动服务。。。。。。。。。。。。。。");
+        startService(new Intent(this,HttpService.class));
     }
 
     private void setData() {

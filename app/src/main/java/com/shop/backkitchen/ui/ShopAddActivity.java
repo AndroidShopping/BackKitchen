@@ -94,10 +94,10 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shop);
-        tv_add_shop = findViewById(R.id.tv_add_shop);
-        iv_icon = findViewById(R.id.iv_icon);
-        et_name = findViewById(R.id.et_name);
-        et_price = findViewById(R.id.et_price);
+        tv_add_shop = (TextView) findViewById(R.id.tv_add_shop);
+        iv_icon = (ImageView) findViewById(R.id.iv_icon);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_price = (EditText) findViewById(R.id.et_price);
         InputFilter[] filters = {new EditInputFilter()};
         et_price.setFilters(filters);
         iv_icon.setOnClickListener(this);
