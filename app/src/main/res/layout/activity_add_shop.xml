@@ -39,6 +39,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/shop_name_shape"
             android:gravity="center"
+            android:inputType="number|numberDecimal"
             android:paddingLeft="10dp"
             android:hint="@string/shop_price"
             android:textColor="#ff000000"

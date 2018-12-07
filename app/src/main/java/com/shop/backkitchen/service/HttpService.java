@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.shop.backkitchen.R;
 import com.shop.backkitchen.event.StartupServiceEvent;
 import com.shop.backkitchen.httpserver.HttpServer;
+import com.shop.backkitchen.util.Constant;
+import com.shop.backkitchen.util.IpGetUtil;
 import com.shop.backkitchen.util.ResourcesUtils;
 import com.shop.backkitchen.util.SdkConfig;
 
@@ -39,12 +41,16 @@ public class HttpService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (!IpGetUtil.checkIp(IpGetUtil.getLocalIpAddress()) || !IpGetUtil.checkPort(String.valueOf(Constant.PORT))){
+            isFailure = true;
+            stopSelf();
+            return super.onStartCommand(intent, flags, startId);
+        }
         if (mHttpServer != null) {
             mHttpServer.stop();
             mHttpServer = null;
         }
         try {
-//            mHttpServer = new HttpServer("www.backkitchen.com",Constant.PORT);
             mHttpServer = new HttpServer();
             mHttpServer.start(NanoHTTPD.SOCKET_READ_TIMEOUT, true);
             SdkConfig.saveServiceStatus(true);

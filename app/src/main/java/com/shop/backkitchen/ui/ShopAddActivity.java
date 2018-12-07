@@ -132,6 +132,10 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
         if (TextUtils.isEmpty(et_price.getText().toString())){
             return;
         }
+        double price =  BigDecimalUtil.mul(et_price.getText().toString(),100);
+        if (price <= 0){
+            return;
+        }
         if (menuItems == null){
             isCommit = true;
             CommonToast.showProgressDialog(thisContext,ResourcesUtils.getString(R.string.commiting));

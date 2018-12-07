@@ -17,7 +17,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -43,21 +43,21 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.ShopListActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".ui.ShopAddActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".ui.HistoryActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
 
     </application>
 

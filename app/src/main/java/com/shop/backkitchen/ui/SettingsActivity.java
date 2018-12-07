@@ -81,6 +81,9 @@ public class SettingsActivity extends BaseActivity {
 
     private void startService() {
         try {
+            if (!IpGetUtil.checkPort(etPort.getText().toString())){
+                return;
+            }
             int port = Integer.parseInt(etPort.getText().toString());
             Constant.PORT = port;
             SharedPreferencesUtils.getSetting().service_port.setVal(Constant.PORT).commit();

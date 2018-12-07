@@ -10,7 +10,7 @@
     <string name="service_started">（服务已启动）</string>
     <string name="background_services">后台服务</string>
     <string name="background_services_details">此通知关闭后不能保证服务的稳定性</string>
-    <string name="ip_tip">IP:</string>
+    <string name="ip_tip"> &#160;&#160;I&#160;P:&#160;&#160;</string>
     <string name="port_tip">端口:</string>
     <string name="service_not_started_button">启动服务</string>
     <string name="service_started_button">服务正在运行</string>
@@ -35,4 +35,8 @@
     <string name="cancle">取消</string>
     <string name="time">下单时间</string>
     <string name="share">%s 份</string>
+    <string name="ip_not_null">IP地址不可为空!</string>
+    <string name="port_not_null">端口不可为空!</string>
+    <string name="ip_format_error">端口格式错误!</string>
+    <string name="port_format_error">端口格式错误!</string>
 </resources>
