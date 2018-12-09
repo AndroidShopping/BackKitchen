@@ -2,6 +2,8 @@ package com.shop.backkitchen.httpserver.dao;
 
 import com.shop.backkitchen.db.sql.SqlShopName;
 import com.shop.backkitchen.db.table.ShopName;
+import com.shop.backkitchen.util.IpGetUtil;
+import com.shop.backkitchen.util.ServerImageUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -70,13 +72,24 @@ public class ShopNameDao {
     }
 
     public static List<ShopName> getShopName(Map<String, String> param) {
+        List<ShopName> list;
         if (param == null || param.isEmpty()) {
-            return getAllShopName();
+            list = getAllShopName();
+        } else {
+            list = SqlShopName.getShopName(SqlShopName.getSQLOperator(param));
         }
-        return SqlShopName.getShopName(SqlShopName.getSQLOperator(param));
+        if (list != null && !list.isEmpty()) {
+            for (ShopName shopName : list) {
+                if (shopName == null) {
+                    continue;
+                }
+                shopName.picPath = IpGetUtil.getHost(ServerImageUtil.service2client(shopName.picPath));
+            }
+        }
+        return list;
     }
 
-    public static List<ShopName> getAllShopName() {
+    private static List<ShopName> getAllShopName() {
         return SqlShopName.getShopName();
     }
 

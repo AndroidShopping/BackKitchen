@@ -1,78 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
-
-    <include layout="@layout/tool_bar_layout" />
+    android:scrollbars="none">
 
     <LinearLayout
-        android:id="@+id/ip_layout"
-        android:layout_marginTop="132dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/ip_tip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/tool_bar_layout" />
+
+        <LinearLayout
+            android:id="@+id/ip_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ip_tip"
-            android:textSize="15dp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="353px"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_ip"
-            android:layout_width="241dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="14dp"
-            android:background="@drawable/edit_bg_shape"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="15dp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/ip_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ip_tip"
+                android:textSize="44px" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_ip"
+                android:layout_width="723px"
+                android:layout_height="130px"
+                android:layout_marginStart="42px"
+                android:background="@drawable/edit_bg_shape"
+                android:gravity="center_vertical"
+                android:paddingStart="30px"
+                android:textColor="@android:color/black"
+                android:textSize="44px" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/port_tip"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/port_tip"
-            android:textSize="15dp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="90px"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/et_port"
-            android:layout_width="241dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="14dp"
-            android:background="@drawable/edit_bg_shape"
-            android:enabled="false"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:textColor="#ff000000"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/port_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/port_tip"
+                android:textSize="44px" />
+
+            <EditText
+                android:id="@+id/et_port"
+                android:layout_width="723px"
+                android:layout_height="130px"
+                android:layout_marginStart="42px"
+                android:background="@drawable/edit_bg_shape"
+                android:enabled="false"
+                android:gravity="center_vertical"
+                android:paddingStart="30px"
+                android:textColor="#ff000000"
+                android:textSize="44px" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_start_service"
+            android:layout_width="980px"
+            android:layout_height="147px"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="175px"
+            android:background="@drawable/setting_button"
+            android:gravity="center"
+            android:text="@string/service_not_started_button"
+            android:textColor="@android:color/white"
+            android:textSize="36px"
+            android:textStyle="bold" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_start_service"
-        android:layout_width="327dp"
-        android:layout_height="49dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/setting_button"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onClick"
-        android:text="@string/service_not_started_button"
-        android:textColor="@android:color/white"
-        android:textSize="12dp"
-        android:textStyle="bold" />
-</LinearLayout>
+</ScrollView>

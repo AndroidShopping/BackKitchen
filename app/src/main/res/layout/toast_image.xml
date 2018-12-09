@@ -24,23 +24,23 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="153dp"
-        android:layout_height="115dp"
+        android:layout_width="459px"
+        android:layout_height="345px"
         android:gravity="center_horizontal"
         android:background="@drawable/corner_round_toast_bg"
         android:orientation="vertical"
-        android:paddingTop="25dp">
+        android:paddingTop="75px">
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_width="111px"
+            android:layout_height="111px"
+            android:layout_marginBottom="30px" />
 
         <TextView
             android:id="@+id/message"
             android:textColor="@android:color/white"
-            android:textSize="14dp"
+            android:textSize="42px"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

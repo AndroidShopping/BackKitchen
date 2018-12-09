@@ -26,25 +26,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingTop="45px"
+        android:paddingBottom="45px"
+        android:paddingLeft="45px"
+        android:paddingRight="45px"
         android:gravity="center"
-        android:minWidth="120dp"
+        android:minWidth="360px"
         android:background="@drawable/corner_round_toast_bg"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/message"
             android:textColor="@android:color/white"
-            android:textSize="15dp"
+            android:textSize="45px"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="测试" />
-
-
     </LinearLayout>
 
 </LinearLayout>

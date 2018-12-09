@@ -7,10 +7,13 @@ import com.shop.backkitchen.db.sql.SqlShopName;
 import com.shop.backkitchen.db.sql.SqlShopOrder;
 import com.shop.backkitchen.db.table.ShopName;
 import com.shop.backkitchen.db.table.ShopOrder;
+import com.shop.backkitchen.event.OrderUpdateEvent;
 import com.shop.backkitchen.httpserver.ResponseResult;
 import com.shop.backkitchen.util.BigDecimalUtil;
 import com.shop.backkitchen.util.GsonUtils;
 import com.shop.backkitchen.util.OrderNumberUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -70,7 +73,7 @@ public class ShopOrderDao {
         if (isSuccess){
             ShopOrder shopOrder = getShopOrderSingle(id);
             if (shopOrder != null && shopOrder.orderStatus == 2){
-                // TODO: 2018/11/29 通知后厨主页有一个新的订单进来了 
+                EventBus.getDefault().post(new OrderUpdateEvent(shopOrder));
             }
         }
         return isSuccess;

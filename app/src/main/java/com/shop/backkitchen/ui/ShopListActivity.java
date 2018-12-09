@@ -20,17 +20,18 @@ import java.util.List;
 
 /**
  * 商品列表页面
+ *
  * @author mengjie6
  * @date 2018/12/01
  */
-public class ShopListActivity extends BaseActivity {
+public class ShopListActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private ShopAdapter recycleAdapter;
     private QueryTransaction.QueryResultListCallback<ShopName> listener = new QueryTransaction.QueryResultListCallback<ShopName>() {
         @Override
         public void onListQueryResult(QueryTransaction transaction, @NonNull List<ShopName> tResult) {
-            if (recycleAdapter == null){
+            if (recycleAdapter == null) {
                 return;
             }
             recycleAdapter.setShopNames(tResult);
@@ -43,11 +44,12 @@ public class ShopListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
         findViewById(R.id.iv_add).setVisibility(View.VISIBLE);
+        findViewById(R.id.iv_add).setOnClickListener(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this );
+        findViewById(R.id.iv_back).setOnClickListener(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        layoutManager.setOrientation(OrientationHelper. VERTICAL);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
         recycleAdapter = new ShopAdapter(thisContext);
         recyclerView.setAdapter(recycleAdapter);
         //设置分隔线
@@ -61,13 +63,14 @@ public class ShopListActivity extends BaseActivity {
         SqlShopName.getShopName(listener);
     }
 
-    protected void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.iv_add:
-                startActivity(new Intent(thisContext,ShopAddActivity.class));
+                startActivity(new Intent(thisContext, ShopAddActivity.class));
                 break;
         }
     }

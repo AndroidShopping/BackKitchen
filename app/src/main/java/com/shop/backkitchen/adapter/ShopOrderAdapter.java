@@ -19,6 +19,7 @@ import com.shop.backkitchen.util.CurrencyUtil;
 import com.shop.backkitchen.util.ResourcesUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,17 @@ public class ShopOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setShopOrders(List<ShopOrder> orders) {
         this.shopOrders = orders;
+    }
+
+    public void addShopOrders(ShopOrder orders) {
+        if (orders == null){
+            return;
+        }
+        if (shopOrders == null){
+            shopOrders = new ArrayList<>();
+        }
+        shopOrders.add(orders);
+        notifyDataSetChanged();
     }
 
     @Override

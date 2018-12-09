@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
+import android.text.TextUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -45,6 +47,10 @@ public class FileUtils {
      */
     public static final String getImagesFolderPath() {
         String imagesFolderPath = SDCARD_ROOT + PATH_ROOT + PATH_IMAGE;
+        if (TextUtils.isEmpty(Constant.IMAGE_PATH) || TextUtils.isEmpty(SharedPreferencesUtils.getSetting().image_sd_path.getVal())){
+            SharedPreferencesUtils.getSetting().image_sd_path.setVal(imagesFolderPath+"/");
+            Constant.IMAGE_PATH = SharedPreferencesUtils.getSetting().image_sd_path.getVal();
+        }
         return imagesFolderPath;
     }
 

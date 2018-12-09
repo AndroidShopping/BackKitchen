@@ -66,8 +66,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         }else {
             shopViewHolder.ivIcon.setImageResource(R.drawable.not_pic);
         }
-
-        // TODO: 2018/12/1 设置价格
         shopViewHolder.tvPrice.setText(CurrencyUtil.numberFormatMoney(BigDecimalUtil.div(shopName.price)));
 
     }

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp"
+    android:paddingRight="30px"
+    android:paddingLeft="30px"
     android:orientation="vertical"
-    android:background="#00000000"
-    tools:context="org.guoruihe.hbottompopmenudemo.bottompopfragmentmenu.BottomMenuFragment">
+    android:background="#00000000">
 
     <LinearLayout
         android:orientation="vertical"
@@ -40,11 +42,9 @@
             android:text="@string/cancle"
             android:textColor="@color/bottom_menu_btn_text_commom_color"
             android:textSize="@dimen/bottom_menu_btn_text_size"
-            tools:text="@string/cancle"
             android:background="@drawable/bottom_menu_btn_selector">
 
         </TextView>
     </LinearLayout>
-
-
 </LinearLayout>
+</ScrollView>

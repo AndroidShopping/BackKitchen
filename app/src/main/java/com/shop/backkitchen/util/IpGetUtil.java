@@ -41,6 +41,13 @@ public class IpGetUtil {
         return null;
     }
 
+    public static String getHost(String fileName){
+        if (TextUtils.isEmpty(fileName)){
+            return "";
+        }
+        return "http://"+Constant.IP+":"+Constant.PORT +"/"+fileName;
+    }
+
     private static boolean isIPv4Address(String input) {
         return IPV4_PATTERN.matcher(input).matches();
     }

@@ -11,18 +11,19 @@
         android:src="@drawable/bg_top" />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="150px"
         android:background="@drawable/home_status_tool_bar_bg"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/history_order"
         android:textColor="#333333"
-        android:textSize="12dp"
+        android:textSize="36px"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -39,4 +39,9 @@
     <string name="port_not_null">端口不可为空!</string>
     <string name="ip_format_error">端口格式错误!</string>
     <string name="port_format_error">端口格式错误!</string>
+    <string name="not_service_image">不是内部图片</string>
+    <string name="image_type">只支持JPG,PNG,Web图片</string>
+    <string name="permission_storage">存储</string>
+    <string name="permission_camera">相机</string>
+    <string name="permission_read_external_storage">读取存储</string>
 </resources>

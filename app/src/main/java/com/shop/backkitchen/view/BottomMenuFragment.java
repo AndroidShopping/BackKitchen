@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -77,9 +78,32 @@ public class BottomMenuFragment extends DialogFragment {
 
         MenuItemAdapter menuItemAdapter = new MenuItemAdapter(getActivity().getBaseContext(), this.menuItems);
         lv_menu.setAdapter(menuItemAdapter);
-
+        setListViewHeight(lv_menu);
         return view;
     }
+    public static void setListViewHeight(ListView listView) {
+        try {
+            int totalHeight = 0;
+            ListAdapter adapter = listView.getAdapter();
+            int len = adapter.getCount() > 3 ? 3:adapter.getCount();
+            for (int i = 0; i < len; i++) { // listAdapter.getCount()
+                View listItem = adapter.getView(i, null, listView);
+                listItem.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                listItem.measure(0, 0);
+                totalHeight += listItem.getMeasuredHeight();
+            }
+
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalHeight
+                    + (listView.getDividerHeight() * (listView.getCount() - 1));
+            listView.setLayoutParams(params);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onDestroyView(){

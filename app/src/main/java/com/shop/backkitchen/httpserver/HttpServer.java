@@ -3,9 +3,14 @@ package com.shop.backkitchen.httpserver;
 import android.text.TextUtils;
 
 import com.shop.backkitchen.util.Constant;
+import com.shop.backkitchen.util.IpGetUtil;
 import com.shop.backkitchen.util.LogUtil;
+import com.shop.backkitchen.util.ServerImageUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +26,7 @@ public class HttpServer extends NanoHTTPD {
 
     public HttpServer() {//初始化端口
         super(Constant.PORT);
+        Constant.IP = IpGetUtil.getLocalIpAddress();
     }
 
 
@@ -34,11 +40,10 @@ public class HttpServer extends NanoHTTPD {
 
     @Override
     public Response serve(IHTTPSession session) {
-        if (Method.POST.equals(session.getMethod()) && Method.GET.equals(session.getMethod())){
+        if (!Method.POST.equals(session.getMethod()) && !Method.GET.equals(session.getMethod())){
             return addHeaderResponse(Status.REQUEST_ERROR_POST_GET);
         }
         String uri = session.getUri();
-        LogUtil.e(TAG,"uri =="+ uri);
         Map<String, String> headers = session.getHeaders();
 
         //接收不到post参数的问题，
@@ -53,7 +58,7 @@ public class HttpServer extends NanoHTTPD {
         try {
             LogUtil.d(TAG, uri);
             //判断uri的合法性，自定义方法，这个是判断是否是接口的方法
-            if (checkUri(uri)) {
+            if (!ServerImageUtil.isImage(ServerImageUtil.getFileType(uri))) {//不是图片 就是接口
                 // 针对的是接口的处理
                 if (headers != null) {
                     LogUtil.d(TAG, headers.toString());
@@ -73,33 +78,29 @@ public class HttpServer extends NanoHTTPD {
 
                 return getParseApi(uri,param);
             } else {
-//                //针对的是静态资源的处理
-//                String filePath = getFilePath(uri); // 根据url获取文件路径
+                if (uri.indexOf("//") != -1){
+                    return super.serve(session);
+                }
+//                //针对的是图片的处理
+                String filePath = ServerImageUtil.client2service(uri); // 根据url获取文件路径
 //
-//                if (filePath == null) {
-//                    LogUtil.d(TAG, "sd卡没有找到");
-//                    return super.serve(session);
-//                }
-//                File file = new File(filePath);
-//
-//                if (file != null && file.exists()) {
-//                    LogUtil.d(TAG, "file path = " + file.getAbsolutePath());
-//                    //根据文件名返回mimeType： image/jpg, video/mp4, etc
-//                    String mimeType = getMimeType(filePath);
-//
-//                    Response res = null;
-//                    InputStream is = new FileInputStream(file);
-//                    res = newFixedLengthResponse(Response.Status.OK, mimeType, is, is.available());
-//                    //下面是跨域的参数（因为一般要和h5联调，所以最好设置一下）
-//                    res.addHeader("Access-Control-Allow-Headers", allowHeaders);
-//                    res.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, HEAD");
-//                    res.addHeader("Access-Control-Allow-Credentials", "true");
-//                    res.addHeader("Access-Control-Allow-Origin", "*");
-//                    res.addHeader("Access-Control-Max-Age", "" + 42 * 60 * 60);
-//                    return res;
-//                } else {
-//                    LogUtil.d(TAG, "file path = " + file.getAbsolutePath() + "的资源不存在");
-//                }
+                if (filePath == null) {
+                    LogUtil.d(TAG, "sd卡没有找到");
+                    return getError();
+                }
+                File file = new File(filePath);
+                if (file != null && file.exists()) {
+                    LogUtil.d(TAG, "file path = " + file.getAbsolutePath());
+                    //根据文件名返回mimeType： image/jpg, video/mp4, etc
+                    String mimeType = getMimeTypeForFile(filePath);
+                    Response res = null;
+                    InputStream is = new FileInputStream(file);
+                    res = newFixedLengthResponse(Response.Status.OK, mimeType, is, is.available());
+                    return res;
+                } else {
+                    LogUtil.d(TAG, "file path = " + file.getAbsolutePath() + "的资源不存在");
+                    return getError();
+                }
 
             }
 
@@ -108,7 +109,6 @@ public class HttpServer extends NanoHTTPD {
         }
         //自己封装的返回请求
         return addHeaderResponse(Status.REQUEST_ERROR);
-//        return super.serve(session);
     }
 
     private Response getParseApi(String uri, Map<String,String> param) {
@@ -118,6 +118,16 @@ public class HttpServer extends NanoHTTPD {
         if (TextUtils.isEmpty(msg)){
             msg = status.description;
         }
+        return newFixedLengthResponse(status,mimeType,msg);
+    }
+
+    private Response getError() {
+        Status status = Status.REQUEST_BAD;
+        String mimeType = "application/json;charset=utf-8";
+        String msg =status.description;
+//        if (TextUtils.isEmpty(msg)){
+//            msg = status.description;
+//        }
         return newFixedLengthResponse(status,mimeType,msg);
     }
 

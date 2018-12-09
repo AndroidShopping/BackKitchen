@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
  * @author mengjie6
  * @date 2018/12/01
  */
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean serviceStatus;
 
@@ -39,7 +39,9 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         tvIp = (TextView) findViewById(R.id.tv_ip);
+        findViewById(R.id.iv_back).setOnClickListener(this);
         tvStartService = (TextView) findViewById(R.id.tv_start_service);
+        tvStartService.setOnClickListener(this);
         etPort = (EditText) findViewById(R.id.et_port);
         serviceStatus = SdkConfig.getServiceStatus();
 
@@ -68,7 +70,8 @@ public class SettingsActivity extends BaseActivity {
         setData();
     }
 
-    protected void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_start_service:
                 startService();

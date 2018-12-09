@@ -30,6 +30,8 @@ import com.shop.backkitchen.util.BigDecimalUtil;
 import com.shop.backkitchen.util.CommonToast;
 import com.shop.backkitchen.util.RealPathFromUriUtils;
 import com.shop.backkitchen.util.ResourcesUtils;
+import com.shop.backkitchen.util.SdkConfig;
+import com.shop.backkitchen.util.ServerImageUtil;
 import com.shop.backkitchen.view.BottomMenuFragment;
 import com.shop.backkitchen.view.MenuItem;
 import com.shop.backkitchen.view.MenuItemOnClickListener;
@@ -98,6 +100,7 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         et_name = (EditText) findViewById(R.id.et_name);
         et_price = (EditText) findViewById(R.id.et_price);
+        findViewById(R.id.iv_back).setOnClickListener(this);
         InputFilter[] filters = {new EditInputFilter()};
         et_price.setFilters(filters);
         iv_icon.setOnClickListener(this);
@@ -241,11 +244,17 @@ public class ShopAddActivity extends BaseActivity implements View.OnClickListene
                     //该uri是上一个Activity返回的
                     Uri imageUri = data.getData();
                     if (imageUri != null) {
+                        realPathFromUri = RealPathFromUriUtils.getRealPathFromUri(this, imageUri);
+                        if (!ServerImageUtil.isImage(ServerImageUtil.getFileType(realPathFromUri))){
+                            realPathFromUri = "";
+                            CommonToast.showTextToast(SdkConfig.getContext(),ResourcesUtils.getString(R.string.image_type));
+                            return;
+                        }
                         Glide.with(this)
                                 .load(imageUri)
                                 .centerCrop()
                                 .into(iv_icon);
-                        realPathFromUri = RealPathFromUriUtils.getRealPathFromUri(this, imageUri);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

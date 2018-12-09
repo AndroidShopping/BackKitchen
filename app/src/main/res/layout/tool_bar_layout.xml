@@ -2,7 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="150px"
     android:orientation="horizontal"
     android:background="@drawable/tool_bar_bg">
 
@@ -10,19 +10,17 @@
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="18dp"
-        android:paddingRight="18dp"
-        android:onClick="onClick"
+        android:paddingLeft="53px"
+        android:paddingRight="53px"
         android:src="@drawable/icon_return_coin"/>
 
     <ImageView
         android:id="@+id/iv_add"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="18dp"
-        android:paddingRight="18dp"
+        android:paddingLeft="53px"
+        android:paddingRight="53px"
         android:layout_gravity="right"
-        android:onClick="onClick"
         android:visibility="gone"
         android:src="@drawable/icon_add"/>
 </FrameLayout>

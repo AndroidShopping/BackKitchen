@@ -2,6 +2,7 @@ package com.shop.backkitchen.ui;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,8 +19,10 @@ import com.shop.backkitchen.base.BaseActivity;
 import com.shop.backkitchen.db.sql.SqlShopOrder;
 import com.shop.backkitchen.db.table.ShopCategory;
 import com.shop.backkitchen.db.table.ShopOrder;
+import com.shop.backkitchen.event.OrderUpdateEvent;
 import com.shop.backkitchen.event.ServiceStatusEvent;
 import com.shop.backkitchen.event.StartupServiceEvent;
+import com.shop.backkitchen.permission.PermissionAccess;
 import com.shop.backkitchen.service.HttpService;
 import com.shop.backkitchen.service.ServiceReceiver;
 import com.shop.backkitchen.util.LogUtil;
@@ -46,14 +49,6 @@ public class MainActivity extends BaseActivity {
             if (recycleAdapter == null){
                 return;
             }
-//            boolean is = true;
-//            for (ShopOrder order:tResult) {
-//                if (is){
-//                    order.orderStatus = 2;
-//                    order.update();
-//                }
-//                is = !is;
-//            }
             recycleAdapter.setShopOrders(tResult);
             recycleAdapter.notifyDataSetChanged();
         }
@@ -66,6 +61,7 @@ public class MainActivity extends BaseActivity {
         setFitSystemWindows(false);
         setContentView(R.layout.activity_main);
         registered();
+        startRequestPermissions();
         tv_service_status = (TextView) findViewById(R.id.tv_service_status);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -102,6 +98,13 @@ public class MainActivity extends BaseActivity {
         }
         serviceStatus = event.serviceStatus;
         setData();
+    }
+    @Subscribe
+    public void event(OrderUpdateEvent event) {
+        if (event == null || event.getShopOrder() == null || event.getShopOrder().orderStatus != 2) {
+            return;
+        }
+        recycleAdapter.addShopOrders(event.getShopOrder());
     }
 
     @Subscribe
@@ -147,5 +150,18 @@ public class MainActivity extends BaseActivity {
         filter.addAction(ServiceReceiver.SERVICE_RECEIVER);
         mReceiver = new ServiceReceiver();
         this.registerReceiver(mReceiver, filter);
+    }
+
+    private void startRequestPermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            EventBus.getDefault().post(new RequestSettingEvent(true));
+            return;
+        }
+        if (PermissionAccess.getInstance().shouldShowRequestPermissionDialog() && !SharedPreferencesUtils.getSetting().request_permission_dialog_showed.getVal()) {
+            SharedPreferencesUtils.getSetting().request_permission_dialog_showed.setVal(true).commit();
+            PermissionAccess.getInstance().requestPermissionsFirstly();
+        } else {
+            PermissionAccess.getInstance().requestPermissionsFirstly();
+        }
     }
 }
