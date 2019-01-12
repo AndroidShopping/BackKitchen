@@ -18,6 +18,9 @@ import java.util.Map;
  */
 
 public class CategoryDao {
+    public static List<ShopCategory> getCategory(){
+        return getCategory(null);
+    }
 
     public static List<ShopCategory> getCategory(Map<String,String> param){
         SQLOperator[] sqlOperators = SqlCategory.getSQLOperator(param);

@@ -2,16 +2,16 @@
 <resources>
     <string-array name="shopCategory">
         　　
-        <item>鲜榨果汁</item>
+        <item>Frisch gepresster Saft</item>
         　　
-        <item>奶茶</item>
+        <item>Milch Tee</item>
         　　
-        <item>碳饮料酸</item>
+        <item>Kohlenstoff-Getränkesäure</item>
         　　
-        <item>小吃</item>
+        <item>Snack</item>
         　　
-        <item>外卖食品</item>
-        <item>其他</item>
+        <item>Essen zum Mitnehmen</item>
+        <item>Andere</item>
         　　
     </string-array>
 </resources>
