@@ -45,7 +45,15 @@ public class IpGetUtil {
         if (TextUtils.isEmpty(fileName)){
             return "";
         }
-        return "http://"+Constant.IP+":"+Constant.PORT +"/"+fileName;
+        StringBuffer buffer = new StringBuffer("http://");
+        buffer.append(Constant.IP);
+        buffer.append(":");
+        buffer.append(Constant.PORT);
+        if (!fileName.startsWith("/")){
+            buffer.append("/");
+        }
+        buffer.append(fileName);
+        return buffer.toString();
     }
 
     private static boolean isIPv4Address(String input) {
