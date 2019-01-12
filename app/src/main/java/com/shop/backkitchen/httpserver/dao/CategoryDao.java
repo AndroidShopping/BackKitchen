@@ -48,6 +48,15 @@ public class CategoryDao {
                 }
             }
         }
+        if (list != null && !list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).shopNames == null || list.get(i).shopNames.isEmpty()) {
+                    if (list.remove(i) != null) {
+                        i--;
+                    }
+                }
+            }
+        }
         return list;
     }
 
