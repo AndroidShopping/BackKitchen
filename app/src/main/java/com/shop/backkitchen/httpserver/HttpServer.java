@@ -45,7 +45,7 @@ public class HttpServer extends NanoHTTPD {
         }
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
-
+        LogUtil.e(TAG,uri);
         //接收不到post参数的问题，
         try {
             session.parseBody(new HashMap<String, String>());

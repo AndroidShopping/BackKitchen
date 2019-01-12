@@ -42,7 +42,9 @@ public class ShopName extends BaseModel {
     public String description;//描述
 
     @Column
-    public int number = -1;//数量，-1表示不限量
+    @Expose
+    @SerializedName("number")
+    public int number = 0;//数量，-1表示不限量
 
     @Column
     @Expose

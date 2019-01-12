@@ -27,11 +27,11 @@ import java.util.Map;
 public class ShopOrderDao {
 
     public static ResponseResult.ShopOrder addShopOrder(Map<String, String> param) {
-        if (param == null || param.isEmpty() || !param.containsKey("order") || !param.containsKey("price")) {
+        if (param == null || param.isEmpty() || !param.containsKey("order") || !param.containsKey("total")) {
             return null;
         }
         ShopOrder shopOrder = new ShopOrder();
-        BigDecimal totalBigDecimal = BigDecimalUtil.toBigDecimal(param.get("price"));
+        BigDecimal totalBigDecimal = BigDecimalUtil.toBigDecimal(param.get("total"));
         if (BigDecimalUtil.equals(totalBigDecimal,BigDecimal.ZERO)){
             return null;
         }
