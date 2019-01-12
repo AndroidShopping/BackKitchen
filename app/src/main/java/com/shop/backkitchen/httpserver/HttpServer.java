@@ -41,7 +41,7 @@ public class HttpServer extends NanoHTTPD {
     @Override
     public Response serve(IHTTPSession session) {
         if (!Method.POST.equals(session.getMethod()) && !Method.GET.equals(session.getMethod())){
-            return addHeaderResponse(Status.REQUEST_ERROR_POST_GET);
+            return addHeaderResponse(Response.Status.NOT_FOUND);
         }
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
@@ -73,7 +73,7 @@ public class HttpServer extends NanoHTTPD {
 
                 if (Method.OPTIONS.equals(session.getMethod())) {
                     LogUtil.d(TAG, "OPTIONS探测性请求");
-                    return addHeaderResponse(Status.REQUEST_OK);
+                    return addHeaderResponse(Response.Status.SWITCH_PROTOCOL);
                 }
 
                 return getParseApi(uri,param);
@@ -81,9 +81,8 @@ public class HttpServer extends NanoHTTPD {
                 if (uri.indexOf("//") != -1){
                     return super.serve(session);
                 }
-//                //针对的是图片的处理
+                //针对的是图片的处理
                 String filePath = ServerImageUtil.client2service(uri); // 根据url获取文件路径
-//
                 if (filePath == null) {
                     LogUtil.d(TAG, "sd卡没有找到");
                     return getError();
@@ -108,62 +107,27 @@ public class HttpServer extends NanoHTTPD {
             e.printStackTrace();
         }
         //自己封装的返回请求
-        return addHeaderResponse(Status.REQUEST_ERROR);
+        return addHeaderResponse(Response.Status.INTERNAL_ERROR);
     }
 
     private Response getParseApi(String uri, Map<String,String> param) {
-        Status status = Status.REQUEST_OK;
+        Response.Status status = Response.Status.OK;
         String mimeType = "application/json;charset=utf-8";
         String msg = ResponseResult.getResponse(uri,param);
         if (TextUtils.isEmpty(msg)){
-            msg = status.description;
+            msg = status.getDescription();
         }
         return newFixedLengthResponse(status,mimeType,msg);
     }
 
     private Response getError() {
-        Status status = Status.REQUEST_BAD;
+        Response.Status status = Response.Status.INTERNAL_ERROR;
         String mimeType = "application/json;charset=utf-8";
-        String msg =status.description;
-//        if (TextUtils.isEmpty(msg)){
-//            msg = status.description;
-//        }
+        String msg =status.getDescription();
         return newFixedLengthResponse(status,mimeType,msg);
     }
 
-    private boolean checkUri(String uri) {
-        return true;
+    private Response addHeaderResponse(Response.Status requestErrorApi) {
+        return newFixedLengthResponse(requestErrorApi,NanoHTTPD.MIME_HTML,requestErrorApi.getDescription());
     }
-
-    private Response addHeaderResponse(Status requestErrorApi) {
-        return newFixedLengthResponse(requestErrorApi,NanoHTTPD.MIME_HTML,requestErrorApi.description);
-    }
-
-    public enum Status implements Response.IStatus {
-        REQUEST_OK(200, "success"),
-        REQUEST_BAD(404, "请求失败"),
-        REQUEST_ERROR(500, "请求失败"),
-        REQUEST_ERROR_API(501, "无效的请求接口"),
-        REQUEST_ERROR_CMD(502, "无效命令"),
-        REQUEST_ERROR_POST_GET(503, "不是POST或GET请求");
-
-        private final int requestStatus;
-        private final String description;
-
-        Status(int requestStatus, String description) {
-            this.requestStatus = requestStatus;
-            this.description = description;
-        }
-
-        @Override
-        public String getDescription() {
-            return description;
-        }
-
-        @Override
-        public int getRequestStatus() {
-            return requestStatus;
-        }
-    }
-
 }
