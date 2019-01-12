@@ -29,6 +29,7 @@ public class ResponseResult {
                 if (CategoryDao.addCategory(param)) {
                     base.data = ResourcesUtils.getString(R.string.response_add_success);
                 } else {
+                    setFailure(base);
                     base.data = ResourcesUtils.getString(R.string.response_add_failure);
                 }
                 break;
@@ -36,6 +37,7 @@ public class ResponseResult {
                 if (ShopNameDao.addShopName(param)) {
                     base.data = ResourcesUtils.getString(R.string.response_add_success);
                 } else {
+                    setFailure(base);
                     base.data = ResourcesUtils.getString(R.string.response_add_failure);
                 }
                 break;
@@ -43,6 +45,7 @@ public class ResponseResult {
                 if (ShopNameDao.updateShopName(param)) {
                     base.data = ResourcesUtils.getString(R.string.response_add_success);
                 } else {
+                    setFailure(base);
                     base.data = ResourcesUtils.getString(R.string.response_add_failure);
                 }
                 break;
@@ -52,6 +55,7 @@ public class ResponseResult {
             case ApiName.ADD_SHOP_ORDER:
                 base.data = ShopOrderDao.addShopOrder(param);
                 if (base.data == null){
+                    setFailure(base);
                     base.data = ResourcesUtils.getString(R.string.response_add_failure);
                 }
                 break;
@@ -59,6 +63,7 @@ public class ResponseResult {
                 if (ShopOrderDao.updateShopOrder(param)) {
                     base.data = ResourcesUtils.getString(R.string.response_add_success);
                 } else {
+                    setFailure(base);
                     base.data = ResourcesUtils.getString(R.string.response_add_failure);
                 }
                 break;
@@ -66,11 +71,18 @@ public class ResponseResult {
                 base.data = ShopOrderDao.getShopOrder(param);
                 break;
             default:
-                base.status = 1;
-                base.message = ResourcesUtils.getString(R.string.response_msg_failure);
+                setFailure(base);
                 break;
         }
         return GsonUtils.toJson(base);
+    }
+
+    private static void setFailure(ResponseBase base){
+        if (base == null){
+            return;
+        }
+        base.status = 1;
+        base.message =ResourcesUtils.getString(R.string.response_msg_failure);;
     }
 
     static class ResponseBase {
