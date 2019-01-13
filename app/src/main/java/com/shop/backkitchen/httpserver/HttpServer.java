@@ -9,9 +9,7 @@ import com.shop.backkitchen.util.ServerImageUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -45,15 +43,6 @@ public class HttpServer extends NanoHTTPD {
         }
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
-        LogUtil.e(TAG,uri);
-        //接收不到post参数的问题，
-        try {
-            session.parseBody(new HashMap<String, String>());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ResponseException e) {
-            e.printStackTrace();
-        }
         Map<String, String> param = session.getParms();
         try {
             LogUtil.d(TAG, uri);
