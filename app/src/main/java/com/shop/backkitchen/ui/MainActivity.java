@@ -31,6 +31,7 @@ import com.shop.backkitchen.util.SharedPreferencesUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -99,7 +100,7 @@ public class MainActivity extends BaseActivity {
         serviceStatus = event.serviceStatus;
         setData();
     }
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void event(OrderUpdateEvent event) {
         if (event == null || event.getShopOrder() == null || event.getShopOrder().orderStatus != 2) {
             return;
