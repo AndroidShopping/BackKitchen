@@ -24,7 +24,7 @@ import java.util.Locale;
 public class FileUtils {
 
     private static final String TAG = FileUtils.class.getSimpleName();
-    public static final String PATH_ROOT = "/back/kitchen/";
+    public static final String PATH_ROOT = "/back/kitchen";
     public static final String PATH_IMAGE = "/service/images";
     private static final String SDCARD_ROOT = Environment
             .getExternalStorageDirectory().toString();
@@ -48,7 +48,7 @@ public class FileUtils {
     public static final String getImagesFolderPath() {
         String imagesFolderPath = SDCARD_ROOT + PATH_ROOT + PATH_IMAGE;
         if (TextUtils.isEmpty(Constant.IMAGE_PATH) || TextUtils.isEmpty(SharedPreferencesUtils.getSetting().image_sd_path.getVal())){
-            SharedPreferencesUtils.getSetting().image_sd_path.setVal(imagesFolderPath+"/");
+            SharedPreferencesUtils.getSetting().image_sd_path.setVal(imagesFolderPath+"/").commit();
             Constant.IMAGE_PATH = SharedPreferencesUtils.getSetting().image_sd_path.getVal();
         }
         return imagesFolderPath;
