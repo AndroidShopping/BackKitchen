@@ -9,6 +9,7 @@ import com.shop.backkitchen.util.ServerImageUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -44,6 +45,9 @@ public class HttpServer extends NanoHTTPD {
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
         Map<String, String> param = session.getParms();
+
+        Response res = null;
+
         try {
             LogUtil.d(TAG, uri);
             //判断uri的合法性，自定义方法，这个是判断是否是接口的方法
@@ -81,7 +85,7 @@ public class HttpServer extends NanoHTTPD {
                     LogUtil.d(TAG, "file path = " + file.getAbsolutePath());
                     //根据文件名返回mimeType： image/jpg, video/mp4, etc
                     String mimeType = getMimeTypeForFile(filePath);
-                    Response res = null;
+
                     InputStream is = new FileInputStream(file);
                     res = newFixedLengthResponse(Response.Status.OK, mimeType, is, is.available());
                     return res;
@@ -94,6 +98,14 @@ public class HttpServer extends NanoHTTPD {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if (null != res){
+                try {
+                    res.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         //自己封装的返回请求
         return addHeaderResponse(Response.Status.INTERNAL_ERROR);
